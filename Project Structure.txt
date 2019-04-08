@@ -1,0 +1,2 @@
+Project: WpfTheAionProject.S1.Sol
+Description: The first sprint develops the theme and layout with the player setup and models.
