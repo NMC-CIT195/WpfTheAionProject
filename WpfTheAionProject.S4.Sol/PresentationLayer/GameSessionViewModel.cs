@@ -37,8 +37,6 @@ namespace WpfTheAionProject.PresentationLayer
         private GameItemQuantity _currentGameItem;
         private Npc _currentNpc;
 
-
-
         #endregion
 
         #region PROPERTIES
@@ -590,6 +588,42 @@ namespace WpfTheAionProject.PresentationLayer
                     QuiteApplication();
                     break;
             }
+        }
+
+        /// <summary>
+        /// handle the speak to event in the view
+        /// </summary>
+        public void OnPlayerTalkTo()
+        {
+            if (CurrentNpc != null && CurrentNpc is ISpeak)
+            {
+                ISpeak speakingNpc = CurrentNpc as ISpeak;
+                CurrentLocationInformation = speakingNpc.Speak();
+            }
+        }
+
+        /// <summary>
+        /// handle the attack event in the view.
+        /// </summary>
+        public void OnPlayerAttack()
+        {
+
+        }
+
+        /// <summary>
+        /// handle the defend event in the view.
+        /// </summary>
+        public void OnPlayerDefend()
+        {
+
+        }
+
+        /// <summary>
+        /// handle the retreat event in the view.
+        /// </summary>
+        public void OnPlayerRetreat()
+        {
+
         }
 
         /// <summary>

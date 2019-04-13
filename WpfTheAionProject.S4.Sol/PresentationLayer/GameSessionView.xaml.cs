@@ -79,5 +79,37 @@ namespace WpfTheAionProject.PresentationLayer
                 _gameSessionViewModel.OnUseGameItem();
             }
         }
+
+        private void SpeakToButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (LocationNpcsDataGrid.SelectedItem != null)
+            {
+                _gameSessionViewModel.OnPlayerTalkTo();
+            }
+        }
+
+        private void AttackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (LocationNpcsDataGrid.SelectedItem != null)
+            {
+                _gameSessionViewModel.OnPlayerAttack();
+            }
+        }
+
+        private void DefendButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (LocationNpcsDataGrid.SelectedItem != null)
+            {
+                _gameSessionViewModel.OnPlayerDefend();
+            }
+        }
+
+        private void RetreatButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (LocationNpcsDataGrid.SelectedItem != null)
+            {
+                _gameSessionViewModel.OnPlayerRetreat();
+            }
+        }
     }
 }

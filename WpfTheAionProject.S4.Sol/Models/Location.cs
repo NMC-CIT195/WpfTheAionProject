@@ -30,6 +30,7 @@ namespace WpfTheAionProject.Models
         private int _modifyLives;
         private string _message;
         private ObservableCollection<GameItemQuantity> _gameItems;
+        private ObservableCollection<Npc> _npcs;
 
         #endregion
 
@@ -100,6 +101,14 @@ namespace WpfTheAionProject.Models
             get { return _gameItems; }
             set { _gameItems = value; }
         }
+
+
+        public ObservableCollection<Npc> Npcs
+        {
+            get { return _npcs; }
+            set { _npcs = value; }
+        }
+
 
         #endregion
 

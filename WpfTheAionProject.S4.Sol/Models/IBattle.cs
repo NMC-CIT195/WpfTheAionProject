@@ -13,5 +13,6 @@ namespace WpfTheAionProject.Models
 
         int Attack(int skillLevel);
         int Defend(int skillLevel);
+        int Retreat(int skillLevel);
     }
 }

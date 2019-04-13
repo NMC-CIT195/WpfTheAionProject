@@ -276,6 +276,32 @@
                                             </DataGrid.Columns>
                                         </DataGrid>
                                     </TabItem>
+
+                                    <TabItem Header="NPCs"
+                                        x:Name="NpcsInfoTabItem">
+                                        <DataGrid 
+                                            x:Name="LocationNpcsDataGrid"
+                                            Height="150"
+                                            ItemsSource="{Binding CurrentLocation.Npcs}" 
+                                            SelectedItem="{Binding CurrentNpc}"
+                                            AutoGenerateColumns="False"
+                                            HeadersVisibility="Column">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn 
+                                                    Header="Description" 
+                                                    IsReadOnly="True"                 
+                                                    Binding="{Binding Information, Mode=OneWay}"
+                                                    Width="*">
+                                                    <DataGridTextColumn.ElementStyle>
+                                                        <Style>
+                                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                                        </Style>
+                                                    </DataGridTextColumn.ElementStyle>
+                                                </DataGridTextColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </TabItem>
+                                    
                                 </TabControl>
                             </StackPanel>
                         </StackPanel>
@@ -286,6 +312,27 @@
                                 Content="Pick Up" 
                                 Style="{StaticResource MainPanelButtonStyle}" 
                                 Click="PickUpButton_Click"/>
+                            <Button 
+                                Content="Speak To" 
+                                Style="{StaticResource MainPanelButtonStyle}" 
+                                Click="SpeakToButton_Click"/>
+                            <StackPanel
+                                Orientation="Vertical"
+                                Margin="5">
+                                <Button
+                                Content="Attack" 
+                                Style="{StaticResource MainPanelButtonStyle}" 
+                                Click="AttackButton_Click"/>
+                                <Button
+                                Margin="0,3,0,3"
+                                Content="Defend" 
+                                Style="{StaticResource MainPanelButtonStyle}" 
+                                Click="DefendButton_Click"/>
+                                <Button 
+                                Content="Retreat" 
+                                Style="{StaticResource MainPanelButtonStyle}" 
+                                Click="RetreatButton_Click"/>
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                 </Border>

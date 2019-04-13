@@ -78,6 +78,7 @@
     <Compile Include="PresentationLayer\PlayerSetupView.xaml.cs">
       <DependentUpon>PlayerSetupView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\BattleEngine.cs" />
     <Compile Include="Utilities\StringHelpers.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

@@ -25,6 +25,7 @@ namespace WpfTheAionProject.Models
         private int _health;
         private int _experiencePoints;
         private int _wealth;
+        private int _skillLevel;
         private JobTitleName _jobTitle;
         private List<Location> _locationsVisited;
         private ObservableCollection<GameItemQuantity> _inventory;
@@ -96,6 +97,12 @@ namespace WpfTheAionProject.Models
                 _wealth = value;
                 OnPropertyChanged(nameof(Wealth));
             }
+        }
+
+        public int SkillLevel
+        {
+            get { return _skillLevel; }
+            set { _skillLevel = value; }
         }
 
         public List<Location> LocationsVisited
@@ -249,7 +256,7 @@ namespace WpfTheAionProject.Models
 
             List<string> vowels = new List<string>() { "A", "E", "I", "O", "U" };
 
-            if (vowels.Contains(_jobTitle.ToString().Substring(0, 1)));
+            if (vowels.Contains(_jobTitle.ToString().Substring(0, 1))) ;
             {
                 article = "an";
             }

@@ -9,6 +9,7 @@ namespace WpfTheAionProject.Models
     public class Military : Npc, ISpeak, IBattle
     {
         private const int DEFENDER_DAMAGE_ADJUSTMENT = 10;
+        private const int MAXIMUM_RETREAT_DAMAGE = 10;
 
         public List<string> Messages { get; set; }
         public int SkillLevel { get; set; }
@@ -95,6 +96,15 @@ namespace WpfTheAionProject.Models
             {
                 return 100;
             }
+        }
+
+        /// <summary>
+        /// return a percent damage number [0 - 100] based on the NPCs skill level
+        /// </summary>
+        /// <returns>damage number 0-100</returns>
+        public int Retreat(int skillLevel)
+        {
+            return Convert.ToInt32(MAXIMUM_RETREAT_DAMAGE / skillLevel);
         }
 
         /// <summary>

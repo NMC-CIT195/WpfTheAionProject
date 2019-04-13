@@ -25,6 +25,7 @@ namespace WpfTheAionProject.DataLayer
                 Health = 100,
                 Lives = 3,
                 ExperiencePoints = 10,
+                SkillLevel = 3,
                 //LocationId = 0,
                 Inventory = new ObservableCollection<GameItemQuantity>()
                 {
@@ -37,6 +38,11 @@ namespace WpfTheAionProject.DataLayer
         private static GameItem GameItemById(int id)
         {
             return StandardGameItems().FirstOrDefault(i => i.Id == id);
+        }
+        
+        private static Npc NpcById(int id)
+        {
+            return Npcs().FirstOrDefault(i => i.Id == id);
         }
 
         public static GameMapCoordinates InitialGameMapLocation()
@@ -82,6 +88,10 @@ namespace WpfTheAionProject.DataLayer
                 GameItems = new ObservableCollection<GameItemQuantity>
                 {
                     new GameItemQuantity(GameItemById(4002), 1)
+                },
+                Npcs = new ObservableCollection<Npc>()
+                {
+                    NpcById(1001),
                 }
             };
 
@@ -101,6 +111,11 @@ namespace WpfTheAionProject.DataLayer
                     new GameItemQuantity(GameItemById(3001), 1),
                     new GameItemQuantity(GameItemById(1002), 1),
                     new GameItemQuantity(GameItemById(4001), 1)
+                },
+                Npcs = new ObservableCollection<Npc>()
+                {
+                    NpcById(1002),
+                    NpcById(2001)
                 }
             };
             gameMap.MapLocations[1, 2] = new Location()
@@ -169,6 +184,26 @@ namespace WpfTheAionProject.DataLayer
         {
             return new List<Npc>()
             {
+                new Military()
+                {
+                    Id = 2001,
+                    Name = "Sargent Aimes",
+                    Race = Character.RaceType.Human,
+                    Description = "A short, stocky man who had a strong look of determination and a disposition to match.",
+                    Messages = new List<string>()
+                    {
+                        "Stop and state your purpose.",
+                        "I have been ordered to kill all who enter.",
+                        "Leave now or bear the consequences."
+                    },
+                   SkillLevel = 8,
+                   Weapons = new List<Weapon>()
+                   {
+                       GameItemById(1001) as Weapon,
+                       GameItemById(1002) as Weapon
+                   }
+                },
+
                 new Citizen()
                 {
                     Id = 1001,
@@ -184,7 +219,7 @@ namespace WpfTheAionProject.DataLayer
 
                 new Citizen()
                 {
-                    Id = 100,
+                    Id = 1002,
                     Name = "Xantipple Ford",
                     Race = Character.RaceType.Xantorian,
                     Description = "A tall women of respectable stature.",
@@ -193,7 +228,6 @@ namespace WpfTheAionProject.DataLayer
                         "Excuse me, but my kind does not speak with your kind."
                     }
                 }
-
             };
         }
     }
