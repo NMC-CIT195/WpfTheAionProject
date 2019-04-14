@@ -17,8 +17,6 @@ namespace WpfTheAionProject.Models
         public Weapon CurrentWeapons { get; set; }
         public Weapon CurrentWeapon { get; set; }
 
-        //private Random random = new Random();
-
         protected override string InformationText()
         {
             return $"{Name} - {Description}";

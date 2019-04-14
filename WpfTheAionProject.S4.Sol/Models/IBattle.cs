@@ -13,10 +13,9 @@ namespace WpfTheAionProject.Models
         Weapon CurrentWeapon { get; set; }
         BattleModeName BattleMode { get; set; }
 
-        /// <summary>
-        /// methods to return hit point values (0 - 100) for each battle mode
-        /// </summary>
-        /// <returns>hit point values (0 - 100)</returns>
+        //
+        // methods to return hit point values (0 - 100) for each battle mode
+        //
         int Attack();
         int Defend();
         int Retreat();

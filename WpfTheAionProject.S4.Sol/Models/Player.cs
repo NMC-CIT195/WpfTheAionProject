@@ -39,8 +39,6 @@ namespace WpfTheAionProject.Models
         private ObservableCollection<GameItemQuantity> _weapons;
         private ObservableCollection<GameItemQuantity> _relics;
 
-        //private Random random = new Random();
-
         #endregion
 
         #region PROPERTIES
@@ -256,7 +254,7 @@ namespace WpfTheAionProject.Models
         #region BATTLE METHODS
 
         /// <summary>
-        /// return hit points [0 - 100] based on the NPCs weapon and skill level
+        /// return hit points [0 - 100] based on the player's weapon and skill level
         /// </summary>
         /// <returns>hit points 0-100</returns>
         public int Attack()
@@ -274,7 +272,7 @@ namespace WpfTheAionProject.Models
         }
 
         /// <summary>
-        /// return hit points [0 - 100] based on the NPCs weapon and skill level
+        /// return hit points [0 - 100] based on the player's weapon and skill level
         /// adjusted to deliver more damage when first attacked
         /// </summary>
         /// <returns>hit points 0-100</returns>
@@ -293,7 +291,7 @@ namespace WpfTheAionProject.Models
         }
 
         /// <summary>
-        /// return hit points [0 - 100] based on the NPCs skill level
+        /// return hit points [0 - 100] based on the player's skill level
         /// </summary>
         /// <returns>hit points 0-100</returns>
         public int Retreat()

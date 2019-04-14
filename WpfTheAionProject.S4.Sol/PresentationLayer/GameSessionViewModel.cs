@@ -670,12 +670,33 @@ namespace WpfTheAionProject.PresentationLayer
                 IBattle battleNpc = _currentNpc as IBattle;
                 int playerHitPoints = 0;
                 int battleNpcHitPoints = 0;
-                string battleInformation;
+                string battleInformation = "";
 
-                playerHitPoints = CalculatePlayerHitPoints();
-                battleNpcHitPoints = CalculateNpcHitPoints(battleNpc);
+                //
+                // calculate hit points if the player and NPC have weapons
+                //
+                if (_player.CurrentWeapon != null)
+                {
+                    playerHitPoints = CalculatePlayerHitPoints();
+                }
+                else
+                {
+                    battleInformation = "It appears you are entering into battle without a weapon.";
+                }
 
-                battleInformation =
+                if (battleNpc.CurrentWeapon != null)
+                {
+                    battleNpcHitPoints = CalculateNpcHitPoints(battleNpc);
+                }
+                else
+                {
+                    battleInformation = $"It appears you are entering into battle with {_currentNpc.Name} who has no weapon.";
+                }
+
+                //
+                // build out the text for the current location information
+                //
+                battleInformation +=
                     $"Player: {_player.BattleMode}     Hit Points: {playerHitPoints}" + Environment.NewLine +
                     $"NPC: {battleNpc.BattleMode}     Hit Points: {battleNpcHitPoints}" + Environment.NewLine;
 
@@ -694,6 +715,7 @@ namespace WpfTheAionProject.PresentationLayer
                 }
 
                 CurrentLocationInformation = battleInformation;
+                if (_player.Lives <= 0) OnPlayerDies("You have been slain and have not lives left.");
             }
             else
             {

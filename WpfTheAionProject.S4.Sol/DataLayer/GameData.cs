@@ -25,8 +25,7 @@ namespace WpfTheAionProject.DataLayer
                 Health = 100,
                 Lives = 3,
                 ExperiencePoints = 10,
-                SkillLevel = 3,
-                //LocationId = 0,
+                SkillLevel = 5,
                 Inventory = new ObservableCollection<GameItemQuantity>()
                 {
                     new GameItemQuantity(GameItemById(1002), 1),
@@ -196,7 +195,7 @@ namespace WpfTheAionProject.DataLayer
                         "I have been ordered to kill all who enter.",
                         "Leave now or bear the consequences."
                     },
-                   SkillLevel = 8,
+                   SkillLevel = 3,
                    CurrentWeapon = GameItemById(1001) as Weapon
                 },
 
