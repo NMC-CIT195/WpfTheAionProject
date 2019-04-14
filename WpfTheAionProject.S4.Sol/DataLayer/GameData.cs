@@ -197,11 +197,7 @@ namespace WpfTheAionProject.DataLayer
                         "Leave now or bear the consequences."
                     },
                    SkillLevel = 8,
-                   Weapons = new List<Weapon>()
-                   {
-                       GameItemById(1001) as Weapon,
-                       GameItemById(1002) as Weapon
-                   }
+                   CurrentWeapon = GameItemById(1001) as Weapon
                 },
 
                 new Citizen()

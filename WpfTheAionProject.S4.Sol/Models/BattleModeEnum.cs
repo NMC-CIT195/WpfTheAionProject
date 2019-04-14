@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfTheAionProject.Utilities
+namespace WpfTheAionProject.Models
 {
-    public static class BattleEngine
+    public enum BattleModeName
     {
-
-
+        ATTACK,
+        DEFEND,
+        RETREAT
     }
 }

@@ -447,6 +447,12 @@
 
                         </TabControl>
                         <StackPanel
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                            <Label Content="Holding" Style="{StaticResource MainPanelLabelStyle}"/>
+                            <TextBox Text="{Binding CurrentGameItem.GameItem.Name}" Style="{StaticResource MainPanelTextBoxStyle}"/>
+                        </StackPanel>
+                        <StackPanel
                             Orientation="Horizontal"
                             Margin="10">
                             <Button 

@@ -13,8 +13,11 @@ namespace WpfTheAionProject.Models
 
         public List<string> Messages { get; set; }
         public int SkillLevel { get; set; }
-        public List<Weapon> Weapons { get; set; }
+        public BattleModeName BattleMode { get; set; }
+        public Weapon CurrentWeapons { get; set; }
         public Weapon CurrentWeapon { get; set; }
+
+        //private Random random = new Random();
 
         protected override string InformationText()
         {
@@ -33,13 +36,13 @@ namespace WpfTheAionProject.Models
             string description,
             List<string> messages,
             int skillLevel,
-            List<Weapon> weapons,
+            Weapon currentWeapons,
             Weapon currentWeapon)
             : base(id, name, race, description)
         {
             Messages = messages;
             SkillLevel = skillLevel;
-            Weapons = weapons;
+            CurrentWeapon = currentWeapons;
             CurrentWeapon = currentWeapon;
         }
 
@@ -70,27 +73,38 @@ namespace WpfTheAionProject.Models
             return Messages[messageIndex];
         }
 
+        #region BATTLE METHODS
+
         /// <summary>
-        /// return a percent damage number [0 - 100] based on the NPCs weapon and skill level
+        /// return hit points [0 - 100] based on the NPCs weapon and skill level
         /// </summary>
-        /// <returns>damage number 0-100</returns>
-        public int Attack(int skillLevel)
+        /// <returns>hit points 0-100</returns>
+        public int Attack()
         {
-            return CalculateMaxPercentDamage(skillLevel);
+            int hitPoints = random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * SkillLevel;
+
+            if (hitPoints <= 100)
+            {
+                return hitPoints;
+            }
+            else
+            {
+                return 100;
+            }
         }
 
         /// <summary>
-        /// return a damage number [0 - 100] based on the NPCs weapon and skill level
+        /// return hit points [0 - 100] based on the NPCs weapon and skill level
         /// adjusted to deliver more damage when first attacked
         /// </summary>
-        /// <returns>damage number 0-100</returns>
-        public int Defend(int skillLevel)
+        /// <returns>hit points 0-100</returns>
+        public int Defend()
         {
-            int adjustedPercentDamage = CalculateMaxPercentDamage(skillLevel) + DEFENDER_DAMAGE_ADJUSTMENT;
+            int hitPoints = (random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * SkillLevel) - DEFENDER_DAMAGE_ADJUSTMENT;
 
-            if (adjustedPercentDamage <= 100)
+            if (hitPoints <= 100)
             {
-                return adjustedPercentDamage;
+                return hitPoints;
             }
             else
             {
@@ -99,59 +113,24 @@ namespace WpfTheAionProject.Models
         }
 
         /// <summary>
-        /// return a percent damage number [0 - 100] based on the NPCs skill level
+        /// return hit points [0 - 100] based on the NPCs skill level
         /// </summary>
-        /// <returns>damage number 0-100</returns>
-        public int Retreat(int skillLevel)
+        /// <returns>hit points 0-100</returns>
+        public int Retreat()
         {
-            return Convert.ToInt32(MAXIMUM_RETREAT_DAMAGE / skillLevel);
-        }
+            int hitPoints = SkillLevel * MAXIMUM_RETREAT_DAMAGE;
 
-        /// <summary>
-        /// calculate the maximum possible percent damage based on weapon and skill level
-        /// </summary>
-        /// <param name="skillLevel">maximum possible percent damage</param>
-        /// <returns></returns>
-        private int CalculateMaxPercentDamage(int skillLevel)
-        {
-            CurrentWeapon = GetRandomWeapon();
-
-            if (GetRandomWeapon() != null)
+            if (hitPoints <= 100)
             {
-                Random random = new Random();
-
-                //
-                // minimum and maximum damage values range: 0 - 10
-                // skill level values range: 0 - 10
-                // multiplying converts to percentage of damage
-                //
-                return Convert.ToInt32(random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * skillLevel);
+                return hitPoints;
             }
             else
             {
-                //
-                // attacking with no weapon results in 100% damage
-                //
                 return 100;
             }
         }
 
-        /// <summary>
-        /// get a random weapon from the NPCs list of weapons
-        /// </summary>
-        /// <returns>weapon to battle with</returns>
-        private Weapon GetRandomWeapon()
-        {
-            Random random = new Random();
-            Weapon battleWeapon = null;
+        #endregion
 
-            if (Weapons.Count != 0)
-            {
-                int index = random.Next(Weapons.Count);
-                battleWeapon = Weapons[index];
-            }
-
-            return battleWeapon;
-        }
     }
 }

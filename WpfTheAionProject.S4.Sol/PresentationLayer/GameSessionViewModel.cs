@@ -37,6 +37,8 @@ namespace WpfTheAionProject.PresentationLayer
         private GameItemQuantity _currentGameItem;
         private Npc _currentNpc;
 
+        private Random random = new Random();
+
         #endregion
 
         #region PROPERTIES
@@ -160,7 +162,15 @@ namespace WpfTheAionProject.PresentationLayer
         public GameItemQuantity CurrentGameItem
         {
             get { return _currentGameItem; }
-            set { _currentGameItem = value; }
+            set
+            {
+                _currentGameItem = value;
+                OnPropertyChanged(nameof(CurrentGameItem));
+                if (_currentGameItem.GameItem is Weapon)
+                {
+                    _player.CurrentWeapon = _currentGameItem.GameItem as Weapon;
+                }
+            }
         }
 
 
@@ -520,7 +530,7 @@ namespace WpfTheAionProject.PresentationLayer
         /// </summary>
         public void OnUseGameItem()
         {
-             switch (_currentGameItem.GameItem)
+            switch (_currentGameItem.GameItem)
             {
                 case Potion potion:
                     ProcessPotionUse(potion);
@@ -607,7 +617,8 @@ namespace WpfTheAionProject.PresentationLayer
         /// </summary>
         public void OnPlayerAttack()
         {
-
+            _player.BattleMode = BattleModeName.ATTACK;
+            Battle();
         }
 
         /// <summary>
@@ -615,7 +626,8 @@ namespace WpfTheAionProject.PresentationLayer
         /// </summary>
         public void OnPlayerDefend()
         {
-
+            _player.BattleMode = BattleModeName.DEFEND;
+            Battle();
         }
 
         /// <summary>
@@ -623,7 +635,8 @@ namespace WpfTheAionProject.PresentationLayer
         /// </summary>
         public void OnPlayerRetreat()
         {
-
+            _player.BattleMode = BattleModeName.RETREAT;
+            Battle();
         }
 
         /// <summary>
@@ -641,6 +654,136 @@ namespace WpfTheAionProject.PresentationLayer
         {
             Environment.Exit(0);
         }
+
+        #region BATTLE METHODS
+
+        /// <summary>
+        /// process the outcome of a battle with an NPC
+        /// </summary>
+        private void Battle()
+        {
+            //
+            // check to see if an NPC can battle
+            //
+            if (_currentNpc is IBattle)
+            {
+                IBattle battleNpc = _currentNpc as IBattle;
+                int playerHitPoints = 0;
+                int battleNpcHitPoints = 0;
+                string battleInformation;
+
+                playerHitPoints = CalculatePlayerHitPoints();
+                battleNpcHitPoints = CalculateNpcHitPoints(battleNpc);
+
+                battleInformation =
+                    $"Player: {_player.BattleMode}     Hit Points: {playerHitPoints}" + Environment.NewLine +
+                    $"NPC: {battleNpc.BattleMode}     Hit Points: {battleNpcHitPoints}" + Environment.NewLine;
+
+                //
+                // determine results of battle
+                //
+                if (playerHitPoints >= battleNpcHitPoints)
+                {
+                    battleInformation += $"You have slain {_currentNpc.Name}.";
+                    _currentLocation.Npcs.Remove(_currentNpc);
+                }
+                else
+                {
+                    battleInformation += $"You have been slain by {_currentNpc.Name}.";
+                    _player.Lives--;
+                }
+
+                CurrentLocationInformation = battleInformation;
+            }
+            else
+            {
+                CurrentLocationInformation = "The current NPC will is not battle ready. Seems you are a bit jumpy and your experience suffers.";
+                _player.ExperiencePoints -= 10;
+            }
+
+        }
+
+        /// <summary>
+        /// calculate player hit points based on battle mode
+        /// </summary>
+        /// <returns>player hit points</returns>
+        private int CalculatePlayerHitPoints()
+        {
+            int playerHitPoints = 0;
+
+            switch (_player.BattleMode)
+            {
+                case BattleModeName.ATTACK:
+                    playerHitPoints = _player.Attack();
+                    break;
+                case BattleModeName.DEFEND:
+                    playerHitPoints = _player.Defend();
+                    break;
+                case BattleModeName.RETREAT:
+                    playerHitPoints = _player.Retreat();
+                    break;
+            }
+
+            return playerHitPoints;
+        }
+
+        /// <summary>
+        /// calculate NPC hit points based on battle mode
+        /// </summary>
+        /// <returns>NPC hit points</returns>
+        private int CalculateNpcHitPoints(IBattle battleNpc)
+        {
+            int battleNpcHitPoints = 0;
+
+            switch (NpcBattleResponse())
+            {
+                case BattleModeName.ATTACK:
+                    battleNpcHitPoints = battleNpc.Attack();
+                    break;
+                case BattleModeName.DEFEND:
+                    battleNpcHitPoints = battleNpc.Defend();
+                    break;
+                case BattleModeName.RETREAT:
+                    battleNpcHitPoints = battleNpc.Retreat();
+                    break;
+            }
+
+            return battleNpcHitPoints;
+        }
+
+        /// <summary>
+        /// determine the NPC's battle response
+        /// </summary>
+        /// <returns>battle response</returns>
+        private BattleModeName NpcBattleResponse()
+        {
+            BattleModeName npcBattleResponse = BattleModeName.RETREAT;
+
+            switch (DieRoll(3))
+            {
+                case 1:
+                    npcBattleResponse = BattleModeName.ATTACK;
+                    break;
+                case 2:
+                    npcBattleResponse = BattleModeName.DEFEND;
+                    break;
+                case 3:
+                    npcBattleResponse = BattleModeName.RETREAT;
+                    break;
+            }
+            return npcBattleResponse;
+        }
+
+        #endregion
+
+        #region HELPER METHODS
+
+        private int DieRoll(int sides)
+        {
+            return random.Next(1, sides + 1);
+        }
+
+        #endregion
 
         #endregion
 

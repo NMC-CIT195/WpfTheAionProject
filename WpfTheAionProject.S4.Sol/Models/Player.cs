@@ -11,13 +11,16 @@ namespace WpfTheAionProject.Models
     /// <summary>
     /// player class
     /// </summary>
-    public class Player : Character
+    public class Player : Character, IBattle
     {
         #region ENUMS
 
         public enum JobTitleName { Explorer, MissionLeader, Supervisor }
 
         #endregion
+
+        private const int DEFENDER_DAMAGE_ADJUSTMENT = 10;
+        private const int MAXIMUM_RETREAT_DAMAGE = 10;
 
         #region FIELDS
 
@@ -26,6 +29,8 @@ namespace WpfTheAionProject.Models
         private int _experiencePoints;
         private int _wealth;
         private int _skillLevel;
+        private Weapon _currentWeapon;
+        private BattleModeName _battleMode;
         private JobTitleName _jobTitle;
         private List<Location> _locationsVisited;
         private ObservableCollection<GameItemQuantity> _inventory;
@@ -33,6 +38,8 @@ namespace WpfTheAionProject.Models
         private ObservableCollection<GameItemQuantity> _treasure;
         private ObservableCollection<GameItemQuantity> _weapons;
         private ObservableCollection<GameItemQuantity> _relics;
+
+        //private Random random = new Random();
 
         #endregion
 
@@ -103,6 +110,18 @@ namespace WpfTheAionProject.Models
         {
             get { return _skillLevel; }
             set { _skillLevel = value; }
+        }
+
+        public Weapon CurrentWeapon
+        {
+            get { return _currentWeapon; }
+            set { _currentWeapon = value; }
+        }
+
+        public BattleModeName BattleMode
+        {
+            get { return _battleMode; }
+            set { _battleMode = value; }
         }
 
         public List<Location> LocationsVisited
@@ -234,6 +253,64 @@ namespace WpfTheAionProject.Models
 
             UpdateInventoryCategories();
         }
+        #region BATTLE METHODS
+
+        /// <summary>
+        /// return hit points [0 - 100] based on the NPCs weapon and skill level
+        /// </summary>
+        /// <returns>hit points 0-100</returns>
+        public int Attack()
+        {
+            int hitPoints = random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * _skillLevel;
+
+            if (hitPoints <= 100)
+            {
+                return hitPoints;
+            }
+            else
+            {
+                return 100;
+            }
+        }
+
+        /// <summary>
+        /// return hit points [0 - 100] based on the NPCs weapon and skill level
+        /// adjusted to deliver more damage when first attacked
+        /// </summary>
+        /// <returns>hit points 0-100</returns>
+        public int Defend()
+        {
+            int hitPoints = (random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * _skillLevel) - DEFENDER_DAMAGE_ADJUSTMENT;
+
+            if (hitPoints <= 100)
+            {
+                return hitPoints;
+            }
+            else
+            {
+                return 100;
+            }
+        }
+
+        /// <summary>
+        /// return hit points [0 - 100] based on the NPCs skill level
+        /// </summary>
+        /// <returns>hit points 0-100</returns>
+        public int Retreat()
+        {
+            int hitPoints = _skillLevel * MAXIMUM_RETREAT_DAMAGE;
+
+            if (hitPoints <= 100)
+            {
+                return hitPoints;
+            }
+            else
+            {
+                return 100;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// determine if this is a old location

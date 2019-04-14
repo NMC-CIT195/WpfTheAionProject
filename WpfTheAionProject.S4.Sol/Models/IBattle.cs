@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfTheAionProject.Models;
 
 namespace WpfTheAionProject.Models
 {
     public interface IBattle
     {
         int SkillLevel { get; set; }
-        List<Weapon> Weapons { get; set; }
+        Weapon CurrentWeapon { get; set; }
+        BattleModeName BattleMode { get; set; }
 
-        int Attack(int skillLevel);
-        int Defend(int skillLevel);
-        int Retreat(int skillLevel);
+        /// <summary>
+        /// methods to return hit point values (0 - 100) for each battle mode
+        /// </summary>
+        /// <returns>hit point values (0 - 100)</returns>
+        int Attack();
+        int Defend();
+        int Retreat();
     }
 }
