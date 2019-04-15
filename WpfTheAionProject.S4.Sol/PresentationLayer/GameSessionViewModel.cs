@@ -166,7 +166,7 @@ namespace WpfTheAionProject.PresentationLayer
             {
                 _currentGameItem = value;
                 OnPropertyChanged(nameof(CurrentGameItem));
-                if (_currentGameItem.GameItem is Weapon)
+                if (_currentGameItem != null && _currentGameItem.GameItem is Weapon)
                 {
                     _player.CurrentWeapon = _currentGameItem.GameItem as Weapon;
                 }
