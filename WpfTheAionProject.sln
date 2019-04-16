@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTheAionProject.S3.Sol.Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTheAionProject.S4.Sol", "WpfTheAionProject.S4.Sol\WpfTheAionProject.S4.Sol.csproj", "{4E82586E-4579-4CA1-AC54-79F03E54E66F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTheAionProject.S4.Str", "WpfTheAionProject.S4.Str\WpfTheAionProject.S4.Str.csproj", "{9B6E4A70-65BE-4496-9163-CC02E40F704F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +82,10 @@ Global
 		{4E82586E-4579-4CA1-AC54-79F03E54E66F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E82586E-4579-4CA1-AC54-79F03E54E66F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E82586E-4579-4CA1-AC54-79F03E54E66F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B6E4A70-65BE-4496-9163-CC02E40F704F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B6E4A70-65BE-4496-9163-CC02E40F704F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B6E4A70-65BE-4496-9163-CC02E40F704F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B6E4A70-65BE-4496-9163-CC02E40F704F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
