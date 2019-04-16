@@ -8,13 +8,14 @@ namespace WpfTheAionProject.Models
 {
     public class Military : Npc, ISpeak, IBattle
     {
+        Random r = new Random();
+
         private const int DEFENDER_DAMAGE_ADJUSTMENT = 10;
         private const int MAXIMUM_RETREAT_DAMAGE = 10;
 
         public List<string> Messages { get; set; }
         public int SkillLevel { get; set; }
         public BattleModeName BattleMode { get; set; }
-        public Weapon CurrentWeapons { get; set; }
         public Weapon CurrentWeapon { get; set; }
 
         protected override string InformationText()
@@ -34,13 +35,11 @@ namespace WpfTheAionProject.Models
             string description,
             List<string> messages,
             int skillLevel,
-            Weapon currentWeapons,
             Weapon currentWeapon)
             : base(id, name, race, description)
         {
             Messages = messages;
             SkillLevel = skillLevel;
-            CurrentWeapon = currentWeapons;
             CurrentWeapon = currentWeapon;
         }
 
@@ -66,7 +65,6 @@ namespace WpfTheAionProject.Models
         /// <returns>message text</returns>
         private string GetMessage()
         {
-            Random r = new Random();
             int messageIndex = r.Next(0, Messages.Count());
             return Messages[messageIndex];
         }
@@ -100,13 +98,17 @@ namespace WpfTheAionProject.Models
         {
             int hitPoints = (random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * SkillLevel) - DEFENDER_DAMAGE_ADJUSTMENT;
 
-            if (hitPoints <= 100)
+            if (hitPoints >= 0 && hitPoints <= 100)
             {
                 return hitPoints;
             }
-            else
+            else if (hitPoints > 100)
             {
                 return 100;
+            }
+            else
+            {
+                return 0;
             }
         }
 

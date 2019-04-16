@@ -681,7 +681,7 @@ namespace WpfTheAionProject.PresentationLayer
                 }
                 else
                 {
-                    battleInformation = "It appears you are entering into battle without a weapon.";
+                    battleInformation = "It appears you are entering into battle without a weapon." + Environment.NewLine;
                 }
 
                 if (battleNpc.CurrentWeapon != null)
@@ -690,7 +690,7 @@ namespace WpfTheAionProject.PresentationLayer
                 }
                 else
                 {
-                    battleInformation = $"It appears you are entering into battle with {_currentNpc.Name} who has no weapon.";
+                    battleInformation = $"It appears you are entering into battle with {_currentNpc.Name} who has no weapon." + Environment.NewLine;
                 }
 
                 //
@@ -715,7 +715,7 @@ namespace WpfTheAionProject.PresentationLayer
                 }
 
                 CurrentLocationInformation = battleInformation;
-                if (_player.Lives <= 0) OnPlayerDies("You have been slain and have not lives left.");
+                if (_player.Lives <= 0) OnPlayerDies("You have been slain and have no lives left.");
             }
             else
             {

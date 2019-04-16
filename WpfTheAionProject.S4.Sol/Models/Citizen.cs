@@ -8,6 +8,8 @@ namespace WpfTheAionProject.Models
 {
     public class Citizen : Npc, ISpeak
     {
+        Random r = new Random();
+
         public List<string> Messages { get; set; }
 
         protected override string InformationText()
@@ -48,7 +50,6 @@ namespace WpfTheAionProject.Models
         /// <returns>message text</returns>
         private string GetMessage()
         {
-            Random r = new Random();
             int messageIndex = r.Next(0, Messages.Count());
             return Messages[messageIndex];
         }

@@ -280,13 +280,17 @@ namespace WpfTheAionProject.Models
         {
             int hitPoints = (random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * _skillLevel) - DEFENDER_DAMAGE_ADJUSTMENT;
 
-            if (hitPoints <= 100)
+            if (hitPoints >= 0 && hitPoints <= 100)
             {
                 return hitPoints;
             }
-            else
+            else if (hitPoints > 100)
             {
                 return 100;
+            }
+            else
+            {
+                return 0;
             }
         }
 
