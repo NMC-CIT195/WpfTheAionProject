@@ -30,7 +30,9 @@ namespace WpfTheAionProject.Models
         private int _modifyLives;
         private string _message;
         private ObservableCollection<GameItemQuantity> _gameItems;
-        private ObservableCollection<Npc> _npcs;
+
+        // todo 12a - add an observable collection of Npc to the Location class
+        //private ObservableCollection<Npc> _npcs;
 
         #endregion
 
@@ -102,12 +104,12 @@ namespace WpfTheAionProject.Models
             set { _gameItems = value; }
         }
 
-
-        public ObservableCollection<Npc> Npcs
-        {
-            get { return _npcs; }
-            set { _npcs = value; }
-        }
+        // todo 12b - add an observable collection of Npc to the Location class
+        //public ObservableCollection<Npc> Npcs
+        //{
+        //    get { return _npcs; }
+        //    set { _npcs = value; }
+        //}
 
 
         #endregion

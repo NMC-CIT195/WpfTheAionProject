@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfTheAionProject.Models
 {
+    // todo 06 - create an ISpeak interface
     interface ISpeak
     {
         List<string> Messages { get; set; }

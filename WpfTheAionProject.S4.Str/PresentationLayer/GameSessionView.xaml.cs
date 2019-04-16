@@ -79,37 +79,42 @@ namespace WpfTheAionProject.PresentationLayer
                 _gameSessionViewModel.OnUseGameItem();
             }
         }
+        // todo 27 - create a method handle the click event for the Speak To button
+        //private void SpeakToButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (LocationNpcsDataGrid.SelectedItem != null)
+        //    {
+        //        _gameSessionViewModel.OnPlayerTalkTo();
+        //    }
+        //}
 
-        private void SpeakToButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (LocationNpcsDataGrid.SelectedItem != null)
-            {
-                _gameSessionViewModel.OnPlayerTalkTo();
-            }
-        }
+        // todo 28 - create a methods handle the click event for the player's battle choices
+        //private void AttackButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (LocationNpcsDataGrid.SelectedItem != null)
+        //    {
+        //        _gameSessionViewModel.OnPlayerAttack();
+        //    }
+        //}
 
-        private void AttackButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (LocationNpcsDataGrid.SelectedItem != null)
-            {
-                _gameSessionViewModel.OnPlayerAttack();
-            }
-        }
+        //private void DefendButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (LocationNpcsDataGrid.SelectedItem != null)
+        //    {
+        //        _gameSessionViewModel.OnPlayerDefend();
+        //    }
+        //}
 
-        private void DefendButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (LocationNpcsDataGrid.SelectedItem != null)
-            {
-                _gameSessionViewModel.OnPlayerDefend();
-            }
-        }
+        //private void RetreatButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (LocationNpcsDataGrid.SelectedItem != null)
+        //    {
+        //        _gameSessionViewModel.OnPlayerRetreat();
+        //    }
+        //}
 
-        private void RetreatButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (LocationNpcsDataGrid.SelectedItem != null)
-            {
-                _gameSessionViewModel.OnPlayerRetreat();
-            }
-        }
+        // todo 29 - [In View] add tab control to display all NPC's in the current location
+        // todo 30 - [In View] add a "Talk To" button
+        // todo 31 - [In View] add "Attack", "Defend", and "Retreat" buttons
     }
 }

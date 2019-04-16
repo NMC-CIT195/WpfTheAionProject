@@ -35,9 +35,12 @@ namespace WpfTheAionProject.PresentationLayer
         private string _currentLocationInformation;
 
         private GameItemQuantity _currentGameItem;
-        private Npc _currentNpc;
 
-        private Random random = new Random();
+        // todo 18a - add a field/property for CurrentNpc in the view model
+        //private Npc _currentNpc;
+
+        // todo 03 - add a random object in the view model class
+        //protected Random random = new Random();
 
         #endregion
 
@@ -166,23 +169,25 @@ namespace WpfTheAionProject.PresentationLayer
             {
                 _currentGameItem = value;
                 OnPropertyChanged(nameof(CurrentGameItem));
-                if (_currentGameItem != null && _currentGameItem.GameItem is Weapon)
-                {
-                    _player.CurrentWeapon = _currentGameItem.GameItem as Weapon;
-                }
+
+                // todo 20 - modify the CurrentGameItem property to update the player's CurrentWeapon if a weapon
+                //if (_currentGameItem != null && _currentGameItem.GameItem is Weapon)
+                //{
+                //    _player.CurrentWeapon = _currentGameItem.GameItem as Weapon;
+                //}
             }
         }
 
-
-        public Npc CurrentNpc
-        {
-            get { return _currentNpc; }
-            set
-            {
-                _currentNpc = value;
-                OnPropertyChanged(nameof(CurrentNpc));
-            }
-        }
+        // todo 18b - add a field/property for CurrentNpc in the view model
+        //public Npc CurrentNpc
+        //{
+        //    get { return _currentNpc; }
+        //    set
+        //    {
+        //        _currentNpc = value;
+        //        OnPropertyChanged(nameof(CurrentNpc));
+        //    }
+        //}
 
         #endregion
 
@@ -600,44 +605,46 @@ namespace WpfTheAionProject.PresentationLayer
             }
         }
 
+        // todo 19 - create a method to handle the OnPlayerTalkTo event
         /// <summary>
         /// handle the speak to event in the view
         /// </summary>
-        public void OnPlayerTalkTo()
-        {
-            if (CurrentNpc != null && CurrentNpc is ISpeak)
-            {
-                ISpeak speakingNpc = CurrentNpc as ISpeak;
-                CurrentLocationInformation = speakingNpc.Speak();
-            }
-        }
+        //public void OnPlayerTalkTo()
+        //{
+        //    if (CurrentNpc != null && CurrentNpc is ISpeak)
+        //    {
+        //        ISpeak speakingNpc = CurrentNpc as ISpeak;
+        //        CurrentLocationInformation = speakingNpc.Speak();
+        //    }
+        //}
 
+        // todo 26 - create methods to handle OnPlayer[BattleMode] events
         /// <summary>
         /// handle the attack event in the view.
         /// </summary>
-        public void OnPlayerAttack()
-        {
-            _player.BattleMode = BattleModeName.ATTACK;
-            Battle();
-        }
+        //public void OnPlayerAttack()
+        //{
+        //    _player.BattleMode = BattleModeName.ATTACK;
+        //    Battle();
+        //}
 
         /// <summary>
         /// handle the defend event in the view.
         /// </summary>
-        public void OnPlayerDefend()
-        {
-            _player.BattleMode = BattleModeName.DEFEND;
-            Battle();
-        }
+        //public void OnPlayerDefend()
+        //{
+        //    _player.BattleMode = BattleModeName.DEFEND;
+        //    Battle();
+        //}
 
         /// <summary>
         /// handle the retreat event in the view.
         /// </summary>
-        public void OnPlayerRetreat()
-        {
-            _player.BattleMode = BattleModeName.RETREAT;
-            Battle();
-        }
+        //public void OnPlayerRetreat()
+        //{
+        //    _player.BattleMode = BattleModeName.RETREAT;
+        //    Battle();
+        //}
 
         /// <summary>
         /// player chooses to exit game
@@ -657,153 +664,158 @@ namespace WpfTheAionProject.PresentationLayer
 
         #region BATTLE METHODS
 
+        // todo 25 - create a method to determine the results of a battle
         /// <summary>
         /// process the outcome of a battle with an NPC
         /// </summary>
-        private void Battle()
-        {
-            //
-            // check to see if an NPC can battle
-            //
-            if (_currentNpc is IBattle)
-            {
-                IBattle battleNpc = _currentNpc as IBattle;
-                int playerHitPoints = 0;
-                int battleNpcHitPoints = 0;
-                string battleInformation = "";
+        //private void Battle()
+        //{
+        //    //
+        //    // check to see if an NPC can battle
+        //    //
+        //    if (_currentNpc is IBattle)
+        //    {
+        //        IBattle battleNpc = _currentNpc as IBattle;
+        //        int playerHitPoints = 0;
+        //        int battleNpcHitPoints = 0;
+        //        string battleInformation = "";
 
-                //
-                // calculate hit points if the player and NPC have weapons
-                //
-                if (_player.CurrentWeapon != null)
-                {
-                    playerHitPoints = CalculatePlayerHitPoints();
-                }
-                else
-                {
-                    battleInformation = "It appears you are entering into battle without a weapon." + Environment.NewLine;
-                }
+        //        //
+        //        // calculate hit points if the player and NPC have weapons
+        //        //
+        //        if (_player.CurrentWeapon != null)
+        //        {
+        //            playerHitPoints = CalculatePlayerHitPoints();
+        //        }
+        //        else
+        //        {
+        //            battleInformation = "It appears you are entering into battle without a weapon." + Environment.NewLine;
+        //        }
 
-                if (battleNpc.CurrentWeapon != null)
-                {
-                    battleNpcHitPoints = CalculateNpcHitPoints(battleNpc);
-                }
-                else
-                {
-                    battleInformation = $"It appears you are entering into battle with {_currentNpc.Name} who has no weapon." + Environment.NewLine;
-                }
+        //        if (battleNpc.CurrentWeapon != null)
+        //        {
+        //            battleNpcHitPoints = CalculateNpcHitPoints(battleNpc);
+        //        }
+        //        else
+        //        {
+        //            battleInformation = $"It appears you are entering into battle with {_currentNpc.Name} who has no weapon." + Environment.NewLine;
+        //        }
 
-                //
-                // build out the text for the current location information
-                //
-                battleInformation +=
-                    $"Player: {_player.BattleMode}     Hit Points: {playerHitPoints}" + Environment.NewLine +
-                    $"NPC: {battleNpc.BattleMode}     Hit Points: {battleNpcHitPoints}" + Environment.NewLine;
+        //        //
+        //        // build out the text for the current location information
+        //        //
+        //        battleInformation +=
+        //            $"Player: {_player.BattleMode}     Hit Points: {playerHitPoints}" + Environment.NewLine +
+        //            $"NPC: {battleNpc.BattleMode}     Hit Points: {battleNpcHitPoints}" + Environment.NewLine;
 
-                //
-                // determine results of battle
-                //
-                if (playerHitPoints >= battleNpcHitPoints)
-                {
-                    battleInformation += $"You have slain {_currentNpc.Name}.";
-                    _currentLocation.Npcs.Remove(_currentNpc);
-                }
-                else
-                {
-                    battleInformation += $"You have been slain by {_currentNpc.Name}.";
-                    _player.Lives--;
-                }
+        //        //
+        //        // determine results of battle
+        //        //
+        //        if (playerHitPoints >= battleNpcHitPoints)
+        //        {
+        //            battleInformation += $"You have slain {_currentNpc.Name}.";
+        //            _currentLocation.Npcs.Remove(_currentNpc);
+        //        }
+        //        else
+        //        {
+        //            battleInformation += $"You have been slain by {_currentNpc.Name}.";
+        //            _player.Lives--;
+        //        }
 
-                CurrentLocationInformation = battleInformation;
-                if (_player.Lives <= 0) OnPlayerDies("You have been slain and have no lives left.");
-            }
-            else
-            {
-                CurrentLocationInformation = "The current NPC will is not battle ready. Seems you are a bit jumpy and your experience suffers.";
-                _player.ExperiencePoints -= 10;
-            }
+        //        CurrentLocationInformation = battleInformation;
+        //        if (_player.Lives <= 0) OnPlayerDies("You have been slain and have no lives left.");
+        //    }
+        //    else
+        //    {
+        //        CurrentLocationInformation = "The current NPC will is not battle ready. Seems you are a bit jumpy and your experience suffers.";
+        //        _player.ExperiencePoints -= 10;
+        //    }
 
-        }
+        //}
 
+        // todo 22 - create a method to calculate the player's hit points
         /// <summary>
         /// calculate player hit points based on battle mode
         /// </summary>
         /// <returns>player hit points</returns>
-        private int CalculatePlayerHitPoints()
-        {
-            int playerHitPoints = 0;
+        //private int CalculatePlayerHitPoints()
+        //{
+        //    int playerHitPoints = 0;
 
-            switch (_player.BattleMode)
-            {
-                case BattleModeName.ATTACK:
-                    playerHitPoints = _player.Attack();
-                    break;
-                case BattleModeName.DEFEND:
-                    playerHitPoints = _player.Defend();
-                    break;
-                case BattleModeName.RETREAT:
-                    playerHitPoints = _player.Retreat();
-                    break;
-            }
+        //    switch (_player.BattleMode)
+        //    {
+        //        case BattleModeName.ATTACK:
+        //            playerHitPoints = _player.Attack();
+        //            break;
+        //        case BattleModeName.DEFEND:
+        //            playerHitPoints = _player.Defend();
+        //            break;
+        //        case BattleModeName.RETREAT:
+        //            playerHitPoints = _player.Retreat();
+        //            break;
+        //    }
 
-            return playerHitPoints;
-        }
+        //    return playerHitPoints;
+        //}
 
+        // todo 24 - create a method to calculate the Npc's hit points
         /// <summary>
         /// calculate NPC hit points based on battle mode
         /// </summary>
         /// <returns>NPC hit points</returns>
-        private int CalculateNpcHitPoints(IBattle battleNpc)
-        {
-            int battleNpcHitPoints = 0;
+        //private int CalculateNpcHitPoints(IBattle battleNpc)
+        //{
+        //    int battleNpcHitPoints = 0;
 
-            switch (NpcBattleResponse())
-            {
-                case BattleModeName.ATTACK:
-                    battleNpcHitPoints = battleNpc.Attack();
-                    break;
-                case BattleModeName.DEFEND:
-                    battleNpcHitPoints = battleNpc.Defend();
-                    break;
-                case BattleModeName.RETREAT:
-                    battleNpcHitPoints = battleNpc.Retreat();
-                    break;
-            }
+        //    switch (NpcBattleResponse())
+        //    {
+        //        case BattleModeName.ATTACK:
+        //            battleNpcHitPoints = battleNpc.Attack();
+        //            break;
+        //        case BattleModeName.DEFEND:
+        //            battleNpcHitPoints = battleNpc.Defend();
+        //            break;
+        //        case BattleModeName.RETREAT:
+        //            battleNpcHitPoints = battleNpc.Retreat();
+        //            break;
+        //    }
 
-            return battleNpcHitPoints;
-        }
+        //    return battleNpcHitPoints;
+        //}
 
+        // todo 21 - create a method to randomly select the Npc's battle response 
         /// <summary>
         /// determine the NPC's battle response
         /// </summary>
         /// <returns>battle response</returns>
-        private BattleModeName NpcBattleResponse()
-        {
-            BattleModeName npcBattleResponse = BattleModeName.RETREAT;
+        //private BattleModeName NpcBattleResponse()
+        //{
+        //    BattleModeName npcBattleResponse = BattleModeName.RETREAT;
 
-            switch (DieRoll(3))
-            {
-                case 1:
-                    npcBattleResponse = BattleModeName.ATTACK;
-                    break;
-                case 2:
-                    npcBattleResponse = BattleModeName.DEFEND;
-                    break;
-                case 3:
-                    npcBattleResponse = BattleModeName.RETREAT;
-                    break;
-            }
-            return npcBattleResponse;
-        }
+        //    switch (DieRoll(3))
+        //    {
+        //        case 1:
+        //            npcBattleResponse = BattleModeName.ATTACK;
+        //            break;
+        //        case 2:
+        //            npcBattleResponse = BattleModeName.DEFEND;
+        //            break;
+        //        case 3:
+        //            npcBattleResponse = BattleModeName.RETREAT;
+        //            break;
+        //    }
+        //    return npcBattleResponse;
+        //}
 
         #endregion
 
         #region HELPER METHODS
 
-        private int DieRoll(int sides)
-        {
-            return random.Next(1, sides + 1);
-        }
+        // todo 01 - add a helper method to simulate a die roll
+        //private int DieRoll(int sides)
+        //{
+        //    return random.Next(1, sides + 1);
+        //}
 
         #endregion
 

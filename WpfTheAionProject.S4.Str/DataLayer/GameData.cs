@@ -25,7 +25,8 @@ namespace WpfTheAionProject.DataLayer
                 Health = 100,
                 Lives = 3,
                 ExperiencePoints = 10,
-                SkillLevel = 5,
+                // todo 13 - add SkillLevel to the PlayerData method
+                //SkillLevel = 5,
                 Inventory = new ObservableCollection<GameItemQuantity>()
                 {
                     new GameItemQuantity(GameItemById(1002), 1),
@@ -38,11 +39,12 @@ namespace WpfTheAionProject.DataLayer
         {
             return StandardGameItems().FirstOrDefault(i => i.Id == id);
         }
-        
-        private static Npc NpcById(int id)
-        {
-            return Npcs().FirstOrDefault(i => i.Id == id);
-        }
+
+        // todo 16 - create a method to select an Npc object from the list by Id
+        //private static Npc NpcById(int id)
+        //{
+        //    return Npcs().FirstOrDefault(i => i.Id == id);
+        //}
 
         public static GameMapCoordinates InitialGameMapLocation()
         {
@@ -88,10 +90,12 @@ namespace WpfTheAionProject.DataLayer
                 {
                     new GameItemQuantity(GameItemById(4002), 1)
                 },
-                Npcs = new ObservableCollection<Npc>()
-                {
-                    NpcById(1001),
-                }
+
+                // todo 17a - add Npc to various locations
+                //Npcs = new ObservableCollection<Npc>()
+                //{
+                //    NpcById(1001),
+                //}
             };
 
             //
@@ -110,12 +114,14 @@ namespace WpfTheAionProject.DataLayer
                     new GameItemQuantity(GameItemById(3001), 1),
                     new GameItemQuantity(GameItemById(1002), 1),
                     new GameItemQuantity(GameItemById(4001), 1)
-                },
-                Npcs = new ObservableCollection<Npc>()
-                {
-                    NpcById(1002),
-                    NpcById(2001)
                 }
+
+                // todo 17b - add Npc to various locations
+                //Npcs = new ObservableCollection<Npc>()
+                //{
+                //    NpcById(1002),
+                //    NpcById(2001)
+                //}
             };
             gameMap.MapLocations[1, 2] = new Location()
             {
@@ -179,51 +185,52 @@ namespace WpfTheAionProject.DataLayer
             };
         }
 
-        public static List<Npc> Npcs()
-        {
-            return new List<Npc>()
-            {
-                new Military()
-                {
-                    Id = 2001,
-                    Name = "Sargent Aimes",
-                    Race = Character.RaceType.Human,
-                    Description = "A short, stocky man who had a strong look of determination and a disposition to match.",
-                    Messages = new List<string>()
-                    {
-                        "Stop and state your purpose.",
-                        "I have been ordered to kill all who enter.",
-                        "Leave now or bear the consequences."
-                    },
-                   SkillLevel = 3,
-                   CurrentWeapon = GameItemById(1001) as Weapon
-                },
+        // todo 14 - create a method to generate a list of game Npc
+        //public static List<Npc> Npcs()
+        //{
+        //    return new List<Npc>()
+        //    {
+        //        new Military()
+        //        {
+        //            Id = 2001,
+        //            Name = "Sargent Aimes",
+        //            Race = Character.RaceType.Human,
+        //            Description = "A short, stocky man who had a strong look of determination and a disposition to match.",
+        //            Messages = new List<string>()
+        //            {
+        //                "Stop and state your purpose.",
+        //                "I have been ordered to kill all who enter.",
+        //                "Leave now or bear the consequences."
+        //            },
+        //           SkillLevel = 3,
+        //           CurrentWeapon = GameItemById(1001) as Weapon
+        //        },
 
-                new Citizen()
-                {
-                    Id = 1001,
-                    Name = "Sonia Smith",
-                    Race = Character.RaceType.Human,
-                    Description = "A tall women of respectable stature.",
-                    Messages = new List<string>()
-                    {
-                        "Hello, my name is Ms Smith. I noticed you when you arrived.",
-                        "Excuse me, but are you looking for something."
-                    }
-                },
+        //        new Citizen()
+        //        {
+        //            Id = 1001,
+        //            Name = "Sonia Smith",
+        //            Race = Character.RaceType.Human,
+        //            Description = "A tall women of respectable stature.",
+        //            Messages = new List<string>()
+        //            {
+        //                "Hello, my name is Ms Smith. I noticed you when you arrived.",
+        //                "Excuse me, but are you looking for something."
+        //            }
+        //        },
 
-                new Citizen()
-                {
-                    Id = 1002,
-                    Name = "Xantipple Ford",
-                    Race = Character.RaceType.Xantorian,
-                    Description = "A tall women of respectable stature.",
-                    Messages = new List<string>()
-                    {
-                        "Excuse me, but my kind does not speak with your kind."
-                    }
-                }
-            };
-        }
+        //        new Citizen()
+        //        {
+        //            Id = 1002,
+        //            Name = "Xantipple Ford",
+        //            Race = Character.RaceType.Xantorian,
+        //            Description = "A tall women of respectable stature.",
+        //            Messages = new List<string>()
+        //            {
+        //                "Excuse me, but my kind does not speak with your kind."
+        //            }
+        //        }
+        //    };
+        //}
     }
 }

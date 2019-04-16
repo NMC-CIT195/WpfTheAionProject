@@ -30,7 +30,8 @@ namespace WpfTheAionProject.Models
         protected int _age;
         protected RaceType _race;
 
-        protected Random random = new Random();
+        // todo 02 - add a random object in the character class
+        //protected Random random = new Random();
 
         #endregion
 

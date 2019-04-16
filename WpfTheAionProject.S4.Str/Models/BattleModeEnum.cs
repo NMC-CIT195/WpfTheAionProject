@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfTheAionProject.Models
 {
+    // todo 05 - create a BattleModeName enum
     public enum BattleModeName
     {
         ATTACK,

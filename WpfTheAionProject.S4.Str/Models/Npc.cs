@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfTheAionProject.Models
 {
+    // todo 04 - create an Npc base class
     public abstract class Npc : Character
     {
         public string Description { get; set; }

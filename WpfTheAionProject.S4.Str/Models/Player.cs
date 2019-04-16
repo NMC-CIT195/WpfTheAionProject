@@ -11,7 +11,9 @@ namespace WpfTheAionProject.Models
     /// <summary>
     /// player class
     /// </summary>
-    public class Player : Character, IBattle
+    // todo 11 - implement the IBattle in the Player class
+    //public class Player : Character, IBattle
+    public class Player : Character
     {
         #region ENUMS
 
@@ -28,9 +30,11 @@ namespace WpfTheAionProject.Models
         private int _health;
         private int _experiencePoints;
         private int _wealth;
-        private int _skillLevel;
-        private Weapon _currentWeapon;
-        private BattleModeName _battleMode;
+
+        // todo 11a - implement the IBattle in the Player class
+        //private int _skillLevel;
+        //private Weapon _currentWeapon;
+        //private BattleModeName _battleMode;
         private JobTitleName _jobTitle;
         private List<Location> _locationsVisited;
         private ObservableCollection<GameItemQuantity> _inventory;
@@ -104,23 +108,24 @@ namespace WpfTheAionProject.Models
             }
         }
 
-        public int SkillLevel
-        {
-            get { return _skillLevel; }
-            set { _skillLevel = value; }
-        }
+        // todo 11b - implement the IBattle in the Player class
+        //public int SkillLevel
+        //{
+        //    get { return _skillLevel; }
+        //    set { _skillLevel = value; }
+        //}
 
-        public Weapon CurrentWeapon
-        {
-            get { return _currentWeapon; }
-            set { _currentWeapon = value; }
-        }
+        //public Weapon CurrentWeapon
+        //{
+        //    get { return _currentWeapon; }
+        //    set { _currentWeapon = value; }
+        //}
 
-        public BattleModeName BattleMode
-        {
-            get { return _battleMode; }
-            set { _battleMode = value; }
-        }
+        //public BattleModeName BattleMode
+        //{
+        //    get { return _battleMode; }
+        //    set { _battleMode = value; }
+        //}
 
         public List<Location> LocationsVisited
         {
@@ -253,64 +258,67 @@ namespace WpfTheAionProject.Models
         }
         #region BATTLE METHODS
 
+        // todo 11c - implement the IBattle in the Player class
         /// <summary>
         /// return hit points [0 - 100] based on the player's weapon and skill level
         /// </summary>
         /// <returns>hit points 0-100</returns>
-        public int Attack()
-        {
-            int hitPoints = random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * _skillLevel;
+        //public int Attack()
+        //{
+        //    int hitPoints = random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * _skillLevel;
 
-            if (hitPoints <= 100)
-            {
-                return hitPoints;
-            }
-            else
-            {
-                return 100;
-            }
-        }
+        //    if (hitPoints <= 100)
+        //    {
+        //        return hitPoints;
+        //    }
+        //    else
+        //    {
+        //        return 100;
+        //    }
+        //}
 
+        // todo 11d - implement the IBattle in the Player class
         /// <summary>
         /// return hit points [0 - 100] based on the player's weapon and skill level
         /// adjusted to deliver more damage when first attacked
         /// </summary>
         /// <returns>hit points 0-100</returns>
-        public int Defend()
-        {
-            int hitPoints = (random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * _skillLevel) - DEFENDER_DAMAGE_ADJUSTMENT;
+        //public int Defend()
+        //{
+        //    int hitPoints = (random.Next(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage) * _skillLevel) - DEFENDER_DAMAGE_ADJUSTMENT;
 
-            if (hitPoints >= 0 && hitPoints <= 100)
-            {
-                return hitPoints;
-            }
-            else if (hitPoints > 100)
-            {
-                return 100;
-            }
-            else
-            {
-                return 0;
-            }
-        }
+        //    if (hitPoints >= 0 && hitPoints <= 100)
+        //    {
+        //        return hitPoints;
+        //    }
+        //    else if (hitPoints > 100)
+        //    {
+        //        return 100;
+        //    }
+        //    else
+        //    {
+        //        return 0;
+        //    }
+        //}
 
+        // todo 11e - implement the IBattle in the Player class
         /// <summary>
         /// return hit points [0 - 100] based on the player's skill level
         /// </summary>
         /// <returns>hit points 0-100</returns>
-        public int Retreat()
-        {
-            int hitPoints = _skillLevel * MAXIMUM_RETREAT_DAMAGE;
+        //public int Retreat()
+        //{
+        //    int hitPoints = _skillLevel * MAXIMUM_RETREAT_DAMAGE;
 
-            if (hitPoints <= 100)
-            {
-                return hitPoints;
-            }
-            else
-            {
-                return 100;
-            }
-        }
+        //    if (hitPoints <= 100)
+        //    {
+        //        return hitPoints;
+        //    }
+        //    else
+        //    {
+        //        return 100;
+        //    }
+        //}
 
         #endregion
 

@@ -277,7 +277,8 @@
                                         </DataGrid>
                                     </TabItem>
 
-                                    <TabItem Header="NPCs"
+                                    <!--tab item to display the NPCs in the current location-->
+                                    <!--<TabItem Header="NPCs"
                                         x:Name="NpcsInfoTabItem">
                                         <DataGrid 
                                             x:Name="LocationNpcsDataGrid"
@@ -300,23 +301,27 @@
                                                 </DataGridTextColumn>
                                             </DataGrid.Columns>
                                         </DataGrid>
-                                    </TabItem>
+                                    </TabItem>-->
 
                                 </TabControl>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel
                             Grid.Row="1"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal">                            
                             <Button 
                                 Content="Pick Up" 
                                 Style="{StaticResource MainPanelButtonStyle}" 
                                 Click="PickUpButton_Click"/>
-                            <Button 
+                            
+                            <!--"Speak To" button to talk with NPCs-->
+                            <!--<Button 
                                 Content="Speak To" 
                                 Style="{StaticResource MainPanelButtonStyle}" 
-                                Click="SpeakToButton_Click"/>
-                            <StackPanel
+                                Click="SpeakToButton_Click"/>-->
+                            
+                            <!--stack panel to hold the player's battle choice buttons-->
+                            <!--<StackPanel
                                 Orientation="Vertical"
                                 Margin="5">
                                 <Button
@@ -332,7 +337,7 @@
                                 Content="Retreat" 
                                 Style="{StaticResource MainPanelButtonStyle}" 
                                 Click="RetreatButton_Click"/>
-                            </StackPanel>
+                            </StackPanel>-->
                         </StackPanel>
                     </Grid>
                 </Border>

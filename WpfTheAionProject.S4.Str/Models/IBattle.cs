@@ -7,6 +7,7 @@ using WpfTheAionProject.Models;
 
 namespace WpfTheAionProject.Models
 {
+    // todo 07 - create an IBattle interface
     public interface IBattle
     {
         int SkillLevel { get; set; }
