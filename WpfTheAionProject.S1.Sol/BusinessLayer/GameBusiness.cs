@@ -16,7 +16,7 @@ namespace WpfTheAionProject.BusinessLayer
     public class GameBusiness
     {
         GameSessionViewModel _gameSessionViewModel;
-        bool _newPlayer = false; // player data coming from GameData class
+        bool _newPlayer = true; // player data coming from GameData class
         Player _player = new Player();
         PlayerSetupView _playerSetupView = null;
         List<string> _messages;

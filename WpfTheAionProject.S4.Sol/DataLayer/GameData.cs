@@ -25,10 +25,11 @@ namespace WpfTheAionProject.DataLayer
                 Health = 100,
                 Lives = 3,
                 ExperiencePoints = 10,
-                SkillLevel = 5,
+                SkillLevel = 4,
                 Inventory = new ObservableCollection<GameItemQuantity>()
                 {
                     new GameItemQuantity(GameItemById(1002), 1),
+                    new GameItemQuantity(GameItemById(1003), 1),
                     new GameItemQuantity(GameItemById(2001), 5),
                 }
             };
@@ -90,7 +91,7 @@ namespace WpfTheAionProject.DataLayer
                 },
                 Npcs = new ObservableCollection<Npc>()
                 {
-                    NpcById(1001),
+                    NpcById(1001)
                 }
             };
 
@@ -114,7 +115,8 @@ namespace WpfTheAionProject.DataLayer
                 Npcs = new ObservableCollection<Npc>()
                 {
                     NpcById(1002),
-                    NpcById(2001)
+                    NpcById(2001),
+                    NpcById(2002)
                 }
             };
             gameMap.MapLocations[1, 2] = new Location()
@@ -170,6 +172,7 @@ namespace WpfTheAionProject.DataLayer
             {
                 new Weapon(1001, "Longsword", 75, 1, 4, "The longsword is a type of sword characterized as having a cruciform hilt with a grip for two-handed use and 85 to 110 cm in length.", 10),
                 new Weapon(1002, "Phaser", 250, 1, 9, "Phasers are common and versatile phased array pulsed energy projectile weapons.", 10),
+                new Weapon(1003, "Tommy Gun", 125, 1, 5, "Tommy guns are an old fashioned, hand carry machine gun popularized by the gangsters of the 1940s.", 10),
                 new Treasure(2001, "Gold Coin", 10, Treasure.TreasureType.Coin, "24 karat gold coin", 1),
                 new Treasure(2020, "Small Diamond", 50, Treasure.TreasureType.Jewel, "A small pea-sized diamond of various colors.", 1),
                 new Treasure(2030, "Kalzonian Manuscript", 10, Treasure.TreasureType.Manuscript, "Reportedly stolen during the Zantorian raids of of the 4th dynasty, it is said to contain information about early galactic technologies.", 5),
@@ -195,8 +198,24 @@ namespace WpfTheAionProject.DataLayer
                         "I have been ordered to kill all who enter.",
                         "Leave now or bear the consequences."
                     },
-                   SkillLevel = 3,
+                   SkillLevel = 5,
                    CurrentWeapon = GameItemById(1001) as Weapon
+                },
+
+                new Military()
+                {
+                    Id = 2002,
+                    Name = "Private Smith",
+                    Race = Character.RaceType.Human,
+                    Description = "A slight, edgy man who looks straight off the farm..",
+                    Messages = new List<string>()
+                    {
+                        "Who are you?",
+                        "Why are you here?",
+                        "Have I told you about my family?"
+                    },
+                   SkillLevel = 1,
+                   CurrentWeapon = GameItemById(1002) as Weapon
                 },
 
                 new Citizen()
