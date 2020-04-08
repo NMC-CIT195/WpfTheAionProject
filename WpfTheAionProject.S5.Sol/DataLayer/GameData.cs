@@ -281,9 +281,10 @@ namespace WpfTheAionProject.DataLayer
                     Status = Mission.MissionStatus.Incomplete,
                     RequiredLocations = new List<Location>()
                     {
-                        LocationById(1),
+                        LocationById(2),
                         LocationById(3)
-                    }
+                    },
+                    ExperiencePoints = 100
                 },
 
                 new Mission()
@@ -295,9 +296,10 @@ namespace WpfTheAionProject.DataLayer
                     Status = Mission.MissionStatus.Incomplete,
                     RequiredGameItemQuantities = new List<GameItemQuantity>()
                     {
-                        new GameItemQuantity(GameItemById(1001), 1),
-                        new GameItemQuantity(GameItemById(4001), 2)
-                    }
+                        new GameItemQuantity(GameItemById(1002), 1),
+                        new GameItemQuantity(GameItemById(4001), 1)
+                    },
+                    ExperiencePoints = 200
                 },
 
                 new Mission()
@@ -309,8 +311,10 @@ namespace WpfTheAionProject.DataLayer
                     Status = Mission.MissionStatus.Incomplete,
                     RequiredNpcs = new List<Npc>()
                     {
-                        NpcById(2001)
-                    }
+                        NpcById(2001),
+                        NpcById(2002)
+                    },
+                    ExperiencePoints = 500
                 },
 
             };

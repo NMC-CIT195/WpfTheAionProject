@@ -197,24 +197,36 @@ namespace WpfTheAionProject.Models
             //
             // Note: only loop through assigned missions
             //
-            foreach (Mission mission in _missions.Where(m => m.Status != Mission.MissionStatus.Unassigned))
+            foreach (Mission mission in _missions.Where(m => m.Status == Mission.MissionStatus.Incomplete))
             {
                 mission.Status = Mission.MissionStatus.Incomplete;
                 switch (mission.MissionType)
-                {               
+                {
                     case Mission.MissionTypeName.travel:
                         if (mission.LocationsNotCompleted(_locationsVisited).Count == 0)
+                        {
                             mission.Status = Mission.MissionStatus.Complete;
+                            ExperiencePoints += mission.ExperiencePoints;
+                        }
+
                         break;
 
                     case Mission.MissionTypeName.inventory:
                         if (mission.GameItemQuantitiesNotCompleted(_inventory.ToList()).Count == 0)
+                        {
                             mission.Status = Mission.MissionStatus.Complete;
+                            ExperiencePoints += mission.ExperiencePoints;
+                        }
+
                         break;
 
                     case Mission.MissionTypeName.npc:
                         if (mission.NpcsNotCompleted(_npcsEngaged).Count == 0)
+                        {
                             mission.Status = Mission.MissionStatus.Complete;
+                            ExperiencePoints += mission.ExperiencePoints;
+                        }
+
                         break;
 
                     default:

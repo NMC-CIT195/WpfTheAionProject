@@ -29,6 +29,7 @@ namespace WpfTheAionProject.Models
         private List<GameItemQuantity> _requiredGameItemQuantities;
         private List<Npc> _requiredNpcs;
         private MissionStatus _status;
+        private int _experiencePoints;
 
         public int Id
         {
@@ -77,6 +78,12 @@ namespace WpfTheAionProject.Models
             get { return _status; }
             set { _status = value; }
         }
+        
+        public int ExperiencePoints
+        {
+            get { return _experiencePoints; }
+            set { _experiencePoints = value; }
+        }
 
         public Mission()
         {
@@ -124,8 +131,17 @@ namespace WpfTheAionProject.Models
 
         public List<Npc> NpcsNotCompleted(List<Npc> NpcsEngaged)
         {
-            var testList = _requiredNpcs.Except(NpcsEngaged).ToList();
-            return testList;
+            List<Npc> npcsToComplete = new List<Npc>();
+
+            foreach (var requiredNpc in _requiredNpcs)
+            {
+                if (NpcsEngaged != null && !NpcsEngaged.Any(l => l.Id == requiredNpc.Id))
+                {
+                    npcsToComplete.Add(requiredNpc);
+                }
+            }
+
+            return npcsToComplete;
         }
 
         public List<GameItemQuantity> GameItemQuantitiesNotCompleted(List<GameItemQuantity> inventory)
@@ -135,7 +151,11 @@ namespace WpfTheAionProject.Models
             foreach (var missionGameItem in _requiredGameItemQuantities)
             {
                 GameItemQuantity inventoryItemMatch = inventory.FirstOrDefault(gi => gi.GameItem.Id == missionGameItem.GameItem.Id);
-                if (inventoryItemMatch != null)
+                if (inventoryItemMatch == null)
+                {
+                    gameItemQuantitiesToComplete.Add(missionGameItem);
+                }
+                else
                 {
                     if (inventoryItemMatch.Quantity < missionGameItem.Quantity)
                     {
