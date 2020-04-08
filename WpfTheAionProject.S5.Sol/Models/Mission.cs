@@ -14,19 +14,39 @@ namespace WpfTheAionProject.Models
             inventory,
             npc
         }
-
         public enum MissionStatus
         {
-            unassigned,
-            incomplete,
-            complete
+            Unassigned,
+            Incomplete,
+            Complete
         }
 
+        private int _id;
+        private string _name;
+        private string _description;
         private MissionTypeName _missionType;
         private List<Location> _requiredLocations;
-        private List<GameItemQuantity> _requiredGameItems;
+        private List<GameItemQuantity> _requiredGameItemQuantities;
         private List<Npc> _requiredNpcs;
         private MissionStatus _status;
+
+        public int Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
+        public string Name
+        {
+            get { return _name; }
+            set { _name = value; }
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; }
+        }
 
         public MissionTypeName MissionType
         {
@@ -46,10 +66,10 @@ namespace WpfTheAionProject.Models
             set { _requiredNpcs = value; }
         }
 
-        public List<GameItemQuantity> RequiredGameItems
+        public List<GameItemQuantity> RequiredGameItemQuantities
         {
-            get { return _requiredGameItems; }
-            set { _requiredGameItems = value; }
+            get { return _requiredGameItemQuantities; }
+            set { _requiredGameItemQuantities = value; }
         }
 
         public MissionStatus Status
@@ -57,27 +77,74 @@ namespace WpfTheAionProject.Models
             get { return _status; }
             set { _status = value; }
         }
-        
+
         public Mission()
         {
 
         }
 
-        public Mission(MissionTypeName missionType, List<Location> requiredLocations)
+        public Mission(int id, string name, MissionTypeName missionType, List<Location> requiredLocations)
         {
+            _id = id;
+            _name = name;
             _missionType = missionType;
             _requiredLocations = requiredLocations;
         }
 
-        public Mission(MissionTypeName missionType, List<GameItemQuantity> requiredGameItemQuantities)
+        public Mission(int id, string name, MissionTypeName missionType, List<GameItemQuantity> requiredGameItemQuantities)
         {
-
+            _id = id;
+            _name = name;
+            _missionType = missionType;
+            _requiredGameItemQuantities = requiredGameItemQuantities;
         }
 
-        public Mission(MissionTypeName missionType, List<Npc> requiredNpcs)
+        public Mission(int id, string name, MissionTypeName missionType, List<Npc> requiredNpcs)
         {
-
+            _id = id;
+            _name = name;
+            _missionType = missionType;
+            _requiredNpcs = requiredNpcs;
         }
 
+        public List<Location> LocationsNotCompleted(List<Location> locationsTraveled)
+        {
+            List<Location> locationsToComplete = new List<Location>();
+
+            foreach (var requiredLocation in _requiredLocations)
+            {
+                if (!locationsTraveled.Any(l => l.Id == requiredLocation.Id))
+                {
+                    locationsToComplete.Add(requiredLocation);
+                }
+            }
+
+            return locationsToComplete;
+        }
+
+        public List<Npc> NpcsNotCompleted(List<Npc> NpcsEngaged)
+        {
+            var testList = _requiredNpcs.Except(NpcsEngaged).ToList();
+            return testList;
+        }
+
+        public List<GameItemQuantity> GameItemQuantitiesNotCompleted(List<GameItemQuantity> inventory)
+        {
+            List<GameItemQuantity> gameItemQuantitiesToComplete = new List<GameItemQuantity>();
+
+            foreach (var missionGameItem in _requiredGameItemQuantities)
+            {
+                GameItemQuantity inventoryItemMatch = inventory.FirstOrDefault(gi => gi.GameItem.Id == missionGameItem.GameItem.Id);
+                if (inventoryItemMatch != null)
+                {
+                    if (inventoryItemMatch.Quantity < missionGameItem.Quantity)
+                    {
+                        gameItemQuantitiesToComplete.Add(missionGameItem);
+                    }
+                }
+            }
+
+            return gameItemQuantitiesToComplete;
+        }
     }
 }

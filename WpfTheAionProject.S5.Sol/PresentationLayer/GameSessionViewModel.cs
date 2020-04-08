@@ -128,6 +128,23 @@ namespace WpfTheAionProject.PresentationLayer
             }
         }
 
+        public void OpenMissionStatusView()
+        {
+            MissionStatusView missionStatusView = new MissionStatusView(InitializeMissionStatusViewModel());
+
+            missionStatusView.Show();
+        }
+
+        private MissionStatusViewModel InitializeMissionStatusViewModel()
+        {
+            MissionStatusViewModel missionStatusViewModel = new MissionStatusViewModel();
+
+            missionStatusViewModel.MissionInformation = "Just beginning your journey, you have a small set of missions to accomplish.";
+            missionStatusViewModel.Missions = new List<Mission>(_player.Missions);
+
+            return missionStatusViewModel;
+        }
+
         public bool HasNorthLocation
         {
             get
@@ -373,6 +390,7 @@ namespace WpfTheAionProject.PresentationLayer
                 CurrentLocation = _gameMap.CurrentLocation;
                 UpdateAvailableTravelPoints();
                 OnPlayerMove();
+                _player.UpdateMissionStatus();
             }
         }
 
@@ -387,6 +405,7 @@ namespace WpfTheAionProject.PresentationLayer
                 CurrentLocation = _gameMap.CurrentLocation;
                 UpdateAvailableTravelPoints();
                 OnPlayerMove();
+                _player.UpdateMissionStatus();
             }
         }
 
@@ -401,6 +420,7 @@ namespace WpfTheAionProject.PresentationLayer
                 CurrentLocation = _gameMap.CurrentLocation;
                 UpdateAvailableTravelPoints();
                 OnPlayerMove();
+                _player.UpdateMissionStatus();
             }
         }
 
@@ -415,6 +435,7 @@ namespace WpfTheAionProject.PresentationLayer
                 CurrentLocation = _gameMap.CurrentLocation;
                 UpdateAvailableTravelPoints();
                 OnPlayerMove();
+                _player.UpdateMissionStatus();
             }
         }
 
@@ -514,6 +535,7 @@ namespace WpfTheAionProject.PresentationLayer
         {
             _player.ExperiencePoints += gameItemQuantity.GameItem.ExperiencePoints;
             _player.Wealth += gameItemQuantity.GameItem.Value;
+            _player.UpdateMissionStatus();
         }
 
         /// <summary>
@@ -523,6 +545,7 @@ namespace WpfTheAionProject.PresentationLayer
         private void OnPlayerPutDown(GameItemQuantity gameItemQuantity)
         {
             _player.Wealth -= gameItemQuantity.GameItem.Value;
+            _player.UpdateMissionStatus();
         }
 
         /// <summary>
@@ -609,6 +632,8 @@ namespace WpfTheAionProject.PresentationLayer
             {
                 ISpeak speakingNpc = CurrentNpc as ISpeak;
                 CurrentLocationInformation = speakingNpc.Speak();
+                _player.NpcsEngaged.Add(_currentNpc);
+                _player.UpdateMissionStatus();
             }
         }
 
@@ -619,6 +644,8 @@ namespace WpfTheAionProject.PresentationLayer
         {
             _player.BattleMode = BattleModeName.ATTACK;
             Battle();
+            _player.NpcsEngaged.Add(_currentNpc);
+            _player.UpdateMissionStatus();
         }
 
         /// <summary>
@@ -628,6 +655,8 @@ namespace WpfTheAionProject.PresentationLayer
         {
             _player.BattleMode = BattleModeName.DEFEND;
             Battle();
+            _player.NpcsEngaged.Add(_currentNpc);
+            _player.UpdateMissionStatus();
         }
 
         /// <summary>
@@ -637,6 +666,8 @@ namespace WpfTheAionProject.PresentationLayer
         {
             _player.BattleMode = BattleModeName.RETREAT;
             Battle();
+            _player.NpcsEngaged.Add(_currentNpc);
+            _player.UpdateMissionStatus();
         }
 
         /// <summary>

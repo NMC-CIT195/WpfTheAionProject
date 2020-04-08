@@ -111,5 +111,10 @@ namespace WpfTheAionProject.PresentationLayer
                 _gameSessionViewModel.OnPlayerRetreat();
             }
         }
+
+        private void MissionStatus_Click(object sender, RoutedEventArgs e)
+        {
+            _gameSessionViewModel.OpenMissionStatusView();
+        }
     }
 }

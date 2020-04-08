@@ -31,6 +31,12 @@ namespace WpfTheAionProject.DataLayer
                     new GameItemQuantity(GameItemById(1002), 1),
                     new GameItemQuantity(GameItemById(1003), 1),
                     new GameItemQuantity(GameItemById(2001), 5),
+                },
+                Missions = new ObservableCollection<Mission>()
+                {
+                    MissionById(1),
+                    MissionById(2),
+                    MissionById(3)
                 }
             };
         }
@@ -39,10 +45,27 @@ namespace WpfTheAionProject.DataLayer
         {
             return StandardGameItems().FirstOrDefault(i => i.Id == id);
         }
-        
+
         private static Npc NpcById(int id)
         {
             return Npcs().FirstOrDefault(i => i.Id == id);
+        }
+
+        private static Location LocationById(int id)
+        {
+            List<Location> locations = new List<Location>();
+
+            foreach (Location location in GameMap().MapLocations)
+            {
+                if (location != null) locations.Add(location);
+            }
+
+            return locations.FirstOrDefault(i => i.Id == id);
+        }
+
+        private static Mission MissionById(int id)
+        {
+            return Missions().FirstOrDefault(m => m.Id == id);
         }
 
         public static GameMapCoordinates InitialGameMapLocation()
@@ -243,6 +266,55 @@ namespace WpfTheAionProject.DataLayer
                     }
                 }
             };
+        }
+
+        public static List<Mission> Missions()
+        {
+            return new List<Mission>()
+            {
+                new Mission()
+                {
+                    Id = 1,
+                    Name = "Scouting",
+                    Description = "Explore all locations and gather all information possible.",
+                    MissionType = Mission.MissionTypeName.travel,
+                    Status = Mission.MissionStatus.Incomplete,
+                    RequiredLocations = new List<Location>()
+                    {
+                        LocationById(1),
+                        LocationById(3)
+                    }
+                },
+
+                new Mission()
+                {
+                    Id = 2,
+                    Name = "Collecting",
+                    Description = "Locate and collect all required objects.",
+                    MissionType = Mission.MissionTypeName.inventory,
+                    Status = Mission.MissionStatus.Incomplete,
+                    RequiredGameItemQuantities = new List<GameItemQuantity>()
+                    {
+                        new GameItemQuantity(GameItemById(1001), 1),
+                        new GameItemQuantity(GameItemById(4001), 2)
+                    }
+                },
+
+                new Mission()
+                {
+                    Id = 3,
+                    Name = "Locate",
+                    Description = "Locate and speak to all required persons.",
+                    MissionType = Mission.MissionTypeName.npc,
+                    Status = Mission.MissionStatus.Incomplete,
+                    RequiredNpcs = new List<Npc>()
+                    {
+                        NpcById(2001)
+                    }
+                },
+
+            };
+
         }
     }
 }

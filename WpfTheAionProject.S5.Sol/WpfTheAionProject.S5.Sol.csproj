@@ -57,6 +57,10 @@
     </ApplicationDefinition>
     <Compile Include="Models\Mission.cs" />
     <Compile Include="ObservableObject.cs" />
+    <Compile Include="PresentationLayer\MissionStatusView.xaml.cs">
+      <DependentUpon>MissionStatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PresentationLayer\MissionStatusViewModel.cs" />
     <Compile Include="Utilities\StringHelpers.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -67,6 +71,10 @@
     <Page Include="PresentationLayer\GameSessionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PresentationLayer\MissionStatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="PresentationLayer\PlayerSetupView.xaml">
       <Generator>MSBuild:Compile</Generator>

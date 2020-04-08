@@ -33,11 +33,14 @@ namespace WpfTheAionProject.Models
         private BattleModeName _battleMode;
         private JobTitleName _jobTitle;
         private List<Location> _locationsVisited;
+        private List<Npc> _npcsEngaged;
+
         private ObservableCollection<GameItemQuantity> _inventory;
         private ObservableCollection<GameItemQuantity> _potions;
         private ObservableCollection<GameItemQuantity> _treasure;
         private ObservableCollection<GameItemQuantity> _weapons;
         private ObservableCollection<GameItemQuantity> _relics;
+        private ObservableCollection<Mission> _missions;
 
         #endregion
 
@@ -128,6 +131,12 @@ namespace WpfTheAionProject.Models
             set { _locationsVisited = value; }
         }
 
+        public List<Npc> NpcsEngaged
+        {
+            get { return _npcsEngaged; }
+            set { _npcsEngaged = value; }
+        }
+
         public ObservableCollection<GameItemQuantity> Inventory
         {
             get { return _inventory; }
@@ -158,6 +167,12 @@ namespace WpfTheAionProject.Models
             set { _relics = value; }
         }
 
+        public ObservableCollection<Mission> Missions
+        {
+            get { return _missions; }
+            set { _missions = value; }
+        }
+
         #endregion
 
         #region CONSTRUCTORS
@@ -165,15 +180,49 @@ namespace WpfTheAionProject.Models
         public Player()
         {
             _locationsVisited = new List<Location>();
+            _npcsEngaged = new List<Npc>();
             _weapons = new ObservableCollection<GameItemQuantity>();
             _treasure = new ObservableCollection<GameItemQuantity>();
             _potions = new ObservableCollection<GameItemQuantity>();
             _relics = new ObservableCollection<GameItemQuantity>();
+            _missions = new ObservableCollection<Mission>();
         }
 
         #endregion
 
         #region METHODS
+
+        public void UpdateMissionStatus()
+        {
+            //
+            // Note: only loop through assigned missions
+            //
+            foreach (Mission mission in _missions.Where(m => m.Status != Mission.MissionStatus.Unassigned))
+            {
+                mission.Status = Mission.MissionStatus.Incomplete;
+                switch (mission.MissionType)
+                {               
+                    case Mission.MissionTypeName.travel:
+                        if (mission.LocationsNotCompleted(_locationsVisited).Count == 0)
+                            mission.Status = Mission.MissionStatus.Complete;
+                        break;
+
+                    case Mission.MissionTypeName.inventory:
+                        if (mission.GameItemQuantitiesNotCompleted(_inventory.ToList()).Count == 0)
+                            mission.Status = Mission.MissionStatus.Complete;
+                        break;
+
+                    case Mission.MissionTypeName.npc:
+                        if (mission.NpcsNotCompleted(_npcsEngaged).Count == 0)
+                            mission.Status = Mission.MissionStatus.Complete;
+                        break;
+
+                    default:
+                        throw new Exception("Unknown mission type.");
+                        break;
+                }
+            }
+        }
 
         public void CalculateWealth()
         {
