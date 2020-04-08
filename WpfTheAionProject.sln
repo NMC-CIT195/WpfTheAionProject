@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTheAionProject.S3.Sol.Fact", "WpfTheAionProject.S3.Sol.Fact\WpfTheAionProject.S3.Sol.Fact.csproj", "{FC522426-3AA9-4709-983F-207F0626C4FC}"
 EndProject
@@ -31,6 +31,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTheAionProject.S4.Sol", "WpfTheAionProject.S4.Sol\WpfTheAionProject.S4.Sol.csproj", "{4E82586E-4579-4CA1-AC54-79F03E54E66F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTheAionProject.S4.Str", "WpfTheAionProject.S4.Str\WpfTheAionProject.S4.Str.csproj", "{9B6E4A70-65BE-4496-9163-CC02E40F704F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTheAionProject.S5.Str", "WpfTheAionProject.S5.Str\WpfTheAionProject.S5.Str.csproj", "{3CEA8E5D-656B-4E67-98BA-236AF421EF3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTheAionProject.S5.Sol", "WpfTheAionProject.S5.Sol\WpfTheAionProject.S5.Sol.csproj", "{4B645836-0194-49B3-BF94-8C6C8EDA065E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +90,14 @@ Global
 		{9B6E4A70-65BE-4496-9163-CC02E40F704F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B6E4A70-65BE-4496-9163-CC02E40F704F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B6E4A70-65BE-4496-9163-CC02E40F704F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CEA8E5D-656B-4E67-98BA-236AF421EF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CEA8E5D-656B-4E67-98BA-236AF421EF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CEA8E5D-656B-4E67-98BA-236AF421EF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CEA8E5D-656B-4E67-98BA-236AF421EF3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B645836-0194-49B3-BF94-8C6C8EDA065E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B645836-0194-49B3-BF94-8C6C8EDA065E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B645836-0194-49B3-BF94-8C6C8EDA065E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B645836-0194-49B3-BF94-8C6C8EDA065E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
