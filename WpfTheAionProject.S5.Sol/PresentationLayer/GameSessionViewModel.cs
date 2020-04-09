@@ -644,7 +644,8 @@ namespace WpfTheAionProject.PresentationLayer
         {
             _player.BattleMode = BattleModeName.ATTACK;
             Battle();
-            _player.NpcsEngaged.Add(_currentNpc);
+            if (_currentNpc != null)
+                _player.NpcsEngaged.Add(_currentNpc);
             _player.UpdateMissionStatus();
         }
 
@@ -655,7 +656,8 @@ namespace WpfTheAionProject.PresentationLayer
         {
             _player.BattleMode = BattleModeName.DEFEND;
             Battle();
-            _player.NpcsEngaged.Add(_currentNpc);
+            if (_currentNpc != null)
+                _player.NpcsEngaged.Add(_currentNpc);
             _player.UpdateMissionStatus();
         }
 
@@ -666,7 +668,8 @@ namespace WpfTheAionProject.PresentationLayer
         {
             _player.BattleMode = BattleModeName.RETREAT;
             Battle();
-            _player.NpcsEngaged.Add(_currentNpc);
+            if (_currentNpc != null)
+                _player.NpcsEngaged.Add(_currentNpc);
             _player.UpdateMissionStatus();
         }
 

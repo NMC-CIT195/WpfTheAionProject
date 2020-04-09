@@ -56,6 +56,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Mission.cs" />
+    <Compile Include="Models\MissionEngage.cs" />
+    <Compile Include="Models\MissionGather.cs" />
+    <Compile Include="Models\MissionTravel.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="PresentationLayer\MissionStatusView.xaml.cs">
       <DependentUpon>MissionStatusView.xaml</DependentUpon>

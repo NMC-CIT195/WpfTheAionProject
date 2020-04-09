@@ -272,27 +272,25 @@ namespace WpfTheAionProject.DataLayer
         {
             return new List<Mission>()
             {
-                new Mission()
+                new MissionTravel()
                 {
                     Id = 1,
                     Name = "Scouting",
                     Description = "Explore all locations and gather all information possible.",
-                    MissionType = Mission.MissionTypeName.travel,
                     Status = Mission.MissionStatus.Incomplete,
                     RequiredLocations = new List<Location>()
                     {
-                        LocationById(2),
-                        LocationById(3)
+                        LocationById(3),
+                        LocationById(5)
                     },
                     ExperiencePoints = 100
                 },
 
-                new Mission()
+                new MissionGather()
                 {
                     Id = 2,
                     Name = "Collecting",
                     Description = "Locate and collect all required objects.",
-                    MissionType = Mission.MissionTypeName.inventory,
                     Status = Mission.MissionStatus.Incomplete,
                     RequiredGameItemQuantities = new List<GameItemQuantity>()
                     {
@@ -302,12 +300,11 @@ namespace WpfTheAionProject.DataLayer
                     ExperiencePoints = 200
                 },
 
-                new Mission()
+                new MissionEngage()
                 {
                     Id = 3,
                     Name = "Locate",
                     Description = "Locate and speak to all required persons.",
-                    MissionType = Mission.MissionTypeName.npc,
                     Status = Mission.MissionStatus.Incomplete,
                     RequiredNpcs = new List<Npc>()
                     {

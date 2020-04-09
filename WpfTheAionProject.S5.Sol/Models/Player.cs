@@ -195,43 +195,37 @@ namespace WpfTheAionProject.Models
         public void UpdateMissionStatus()
         {
             //
-            // Note: only loop through assigned missions
+            // Note: only loop through assigned missions and cast mission to proper child class
             //
             foreach (Mission mission in _missions.Where(m => m.Status == Mission.MissionStatus.Incomplete))
             {
-                mission.Status = Mission.MissionStatus.Incomplete;
-                switch (mission.MissionType)
+                if (mission is MissionTravel)
                 {
-                    case Mission.MissionTypeName.travel:
-                        if (mission.LocationsNotCompleted(_locationsVisited).Count == 0)
-                        {
-                            mission.Status = Mission.MissionStatus.Complete;
-                            ExperiencePoints += mission.ExperiencePoints;
-                        }
-
-                        break;
-
-                    case Mission.MissionTypeName.inventory:
-                        if (mission.GameItemQuantitiesNotCompleted(_inventory.ToList()).Count == 0)
-                        {
-                            mission.Status = Mission.MissionStatus.Complete;
-                            ExperiencePoints += mission.ExperiencePoints;
-                        }
-
-                        break;
-
-                    case Mission.MissionTypeName.npc:
-                        if (mission.NpcsNotCompleted(_npcsEngaged).Count == 0)
-                        {
-                            mission.Status = Mission.MissionStatus.Complete;
-                            ExperiencePoints += mission.ExperiencePoints;
-                        }
-
-                        break;
-
-                    default:
-                        throw new Exception("Unknown mission type.");
-                        break;
+                    if (((MissionTravel)mission).LocationsNotCompleted(_locationsVisited).Count == 0)
+                    {
+                        mission.Status = Mission.MissionStatus.Complete;
+                        ExperiencePoints += mission.ExperiencePoints;
+                    }
+                }
+                else if (mission is MissionGather)
+                {
+                    if (((MissionGather)mission).GameItemQuantitiesNotCompleted(_inventory.ToList()).Count == 0)
+                    {
+                        mission.Status = Mission.MissionStatus.Complete;
+                        ExperiencePoints += mission.ExperiencePoints;
+                    }
+                }
+                else if (mission is MissionEngage)
+                {
+                    if (((MissionEngage)mission).NpcsNotCompleted(_npcsEngaged).Count == 0)
+                    {
+                        mission.Status = Mission.MissionStatus.Complete;
+                        ExperiencePoints += mission.ExperiencePoints;
+                    }
+                }
+                else
+                {
+                    throw new Exception("Unknown Mission child class.");
                 }
             }
         }
