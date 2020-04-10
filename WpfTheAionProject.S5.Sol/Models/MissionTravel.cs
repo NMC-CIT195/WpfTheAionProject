@@ -36,7 +36,6 @@ namespace WpfTheAionProject.Models
             _requiredLocations = requiredLocations;
         }
 
-
         public List<Location> LocationsNotCompleted(List<Location> locationsTraveled)
         {
             List<Location> locationsToComplete = new List<Location>();

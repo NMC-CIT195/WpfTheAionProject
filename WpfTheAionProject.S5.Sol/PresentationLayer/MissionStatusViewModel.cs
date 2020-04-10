@@ -17,8 +17,7 @@ namespace WpfTheAionProject.PresentationLayer
             get { return _missions; }
             set { _missions = value; }
         }
-
-
+        
         public string MissionInformation
         {
             get { return _missionInformation; }

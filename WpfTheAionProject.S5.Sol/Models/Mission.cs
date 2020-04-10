@@ -69,59 +69,5 @@ namespace WpfTheAionProject.Models
             _name = name;
             _status = status;
         }
-
-
-        //public List<Location> LocationsNotCompleted(List<Location> locationsTraveled)
-        //{
-        //    List<Location> locationsToComplete = new List<Location>();
-
-        //    foreach (var requiredLocation in _requiredLocations)
-        //    {
-        //        if (!locationsTraveled.Any(l => l.Id == requiredLocation.Id))
-        //        {
-        //            locationsToComplete.Add(requiredLocation);
-        //        }
-        //    }
-
-        //    return locationsToComplete;
-        //}
-
-        //public List<Npc> NpcsNotCompleted(List<Npc> NpcsEngaged)
-        //{
-        //    List<Npc> npcsToComplete = new List<Npc>();
-
-        //    foreach (var requiredNpc in _requiredNpcs)
-        //    {
-        //        if (NpcsEngaged != null && !NpcsEngaged.Any(l => l.Id == requiredNpc.Id))
-        //        {
-        //            npcsToComplete.Add(requiredNpc);
-        //        }
-        //    }
-
-        //    return npcsToComplete;
-        //}
-
-        //public List<GameItemQuantity> GameItemQuantitiesNotCompleted(List<GameItemQuantity> inventory)
-        //{
-        //    List<GameItemQuantity> gameItemQuantitiesToComplete = new List<GameItemQuantity>();
-
-        //    foreach (var missionGameItem in _requiredGameItemQuantities)
-        //    {
-        //        GameItemQuantity inventoryItemMatch = inventory.FirstOrDefault(gi => gi.GameItem.Id == missionGameItem.GameItem.Id);
-        //        if (inventoryItemMatch == null)
-        //        {
-        //            gameItemQuantitiesToComplete.Add(missionGameItem);
-        //        }
-        //        else
-        //        {
-        //            if (inventoryItemMatch.Quantity < missionGameItem.Quantity)
-        //            {
-        //                gameItemQuantitiesToComplete.Add(missionGameItem);
-        //            }
-        //        }
-        //    }
-
-        //    return gameItemQuantitiesToComplete;
-        //}
     }
 }
