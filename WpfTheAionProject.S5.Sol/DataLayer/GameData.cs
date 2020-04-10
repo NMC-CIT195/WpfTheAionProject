@@ -295,7 +295,8 @@ namespace WpfTheAionProject.DataLayer
                     RequiredGameItemQuantities = new List<GameItemQuantity>()
                     {
                         new GameItemQuantity(GameItemById(1002), 1),
-                        new GameItemQuantity(GameItemById(4001), 1)
+                        new GameItemQuantity(GameItemById(4001), 1),
+                        new GameItemQuantity(GameItemById(2001), 7)
                     },
                     ExperiencePoints = 200
                 },

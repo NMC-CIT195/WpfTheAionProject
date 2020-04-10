@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfTheAionProject.PresentationLayer"
         mc:Ignorable="d"
         Background="MidnightBlue"
-        Width="900"
+        Width="600"
         Height="600"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow">
@@ -104,13 +104,13 @@
             <Grid
                 Margin="10">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
                     <RowDefinition Height="2*"/>
-                    <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
                 <Border
                     Grid.Row="0"
-                    Margin="0,0,0,10"
-                    Style="{StaticResource BorderStyle}">
+                    Margin="0"
+                    Style="{StaticResource BorderStyle}" Grid.ColumnSpan="2">
                     <Grid>
                         <StackPanel
                             Orientation="Vertical">
@@ -118,6 +118,12 @@
                                 Orientation="Vertical"
                                 HorizontalAlignment="Center"
                                 Margin="0">
+                                <Button 
+                                    Margin="0,10,0,0"
+                                    Width="150"
+                                    Content="Return to Main Screen" 
+                                    Style="{StaticResource MainPanelButtonStyle}" 
+                                    Click="MissionStatusWindowClose_Click"/>
                                 <Label 
                                     Margin="10"
                                     Content="Current Mission Information" 
@@ -130,7 +136,7 @@
                                     Background="WhiteSmoke"
                                     Style="{StaticResource BorderStyle}">
                                     <TextBox
-                                        Height="50"
+                                        Height="60"
                                         Width="500"
                                         Margin="10"
                                         Background="WhiteSmoke"
@@ -147,12 +153,13 @@
                     </Grid>
                 </Border>
                 <Border
-                    Grid.Row="1"
-                    Style="{StaticResource BorderStyle}">
+                    Style="{StaticResource BorderStyle}" 
+                    Margin="0,10,0,0"
+                    Grid.Row="1">
                     <StackPanel>
                         <DataGrid 
                             x:Name="LocationItemsDataGrid"
-                            Height="150"
+                            Height="300"
                             Margin="10"
                             ItemsSource="{Binding Missions}" 
                             AutoGenerateColumns="False"
@@ -170,9 +177,14 @@
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
                                 <DataGridTextColumn 
-                                        Header="Description" 
+                                        Header="Status"
+                                        IsReadOnly="True"
+                                        Width="100"
+                                        Binding="{Binding Status, Mode=OneWay}"/>
+                                <DataGridTextColumn 
+                                        Header="Details" 
                                         IsReadOnly="True"                 
-                                        Binding="{Binding Description, Mode=OneWay}"
+                                        Binding="{Binding StatusDetail, Mode=OneWay}"
                                         Width="*">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style>
@@ -180,11 +192,7 @@
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn 
-                                        Header="Status"
-                                        IsReadOnly="True"
-                                        Width="100"
-                                        Binding="{Binding Status, Mode=OneWay}"/>
+
                             </DataGrid.Columns>
                         </DataGrid>
                     </StackPanel>

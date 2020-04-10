@@ -34,6 +34,11 @@ namespace WpfTheAionProject.PresentationLayer
         private void InitializeWindowTheme()
         {
             this.Title = "Laughing Leaf Productions";
-        }  
+        }
+
+        private void MissionStatusWindowClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

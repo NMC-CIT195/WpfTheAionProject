@@ -21,6 +21,13 @@ namespace WpfTheAionProject.PresentationLayer
 
         #endregion
 
+        #region CONSTANTANTS
+
+        const string TAB = "\t";
+        const string NEW_LINE = "\n";
+
+        #endregion
+
         #region FIELDS
 
         private DateTime _gameStartTime;
@@ -126,23 +133,6 @@ namespace WpfTheAionProject.PresentationLayer
                 _currentLocationInformation = value;
                 OnPropertyChanged(nameof(CurrentLocationInformation));
             }
-        }
-
-        public void OpenMissionStatusView()
-        {
-            MissionStatusView missionStatusView = new MissionStatusView(InitializeMissionStatusViewModel());
-
-            missionStatusView.Show();
-        }
-
-        private MissionStatusViewModel InitializeMissionStatusViewModel()
-        {
-            MissionStatusViewModel missionStatusViewModel = new MissionStatusViewModel();
-
-            missionStatusViewModel.MissionInformation = "Just beginning your journey, you have a small set of missions to accomplish.";
-            missionStatusViewModel.Missions = new List<Mission>(_player.Missions);
-
-            return missionStatusViewModel;
         }
 
         public bool HasNorthLocation
@@ -437,6 +427,176 @@ namespace WpfTheAionProject.PresentationLayer
                 OnPlayerMove();
                 _player.UpdateMissionStatus();
             }
+        }
+
+        /// <summary>
+        /// open the Mission Status window
+        /// </summary>
+        public void OpenMissionStatusView()
+        {
+            MissionStatusView missionStatusView = new MissionStatusView(InitializeMissionStatusViewModel());
+
+            missionStatusView.Show();
+        }
+
+        /// <summary>
+        /// initialize all property values for the mission status view model
+        /// </summary>
+        /// <returns>mission status view model</returns>
+        private MissionStatusViewModel InitializeMissionStatusViewModel()
+        {
+            MissionStatusViewModel missionStatusViewModel = new MissionStatusViewModel();
+
+            missionStatusViewModel.MissionInformation = GenerateMissionStatusInformation();
+
+            missionStatusViewModel.Missions = new List<Mission>(_player.Missions);
+            foreach (Mission mission in missionStatusViewModel.Missions)
+            {
+                if (mission is MissionTravel)
+                    mission.StatusDetail = GenerateMissionTravelDetail((MissionTravel)mission);
+
+                if (mission is MissionEngage)
+                    mission.StatusDetail = GenerateMissionEngageDetail((MissionEngage)mission);
+
+                if (mission is MissionGather)
+                    mission.StatusDetail = GenerateMissionGatherDetail((MissionGather)mission);
+            }
+
+            return missionStatusViewModel;
+        }
+
+        /// <summary>
+        /// generate the mission status information text based on percentage of missions completed
+        /// </summary>
+        /// <returns>mission status information text</returns>
+        private string GenerateMissionStatusInformation()
+        {
+            string missionStatusInformation;
+
+            double totalMissions = _player.Missions.Count();
+            double missionsCompleted = _player.Missions.Where(m => m.Status == Mission.MissionStatus.Complete).Count();
+
+            int percentMissionsCompleted = (int)((missionsCompleted / totalMissions) * 100);
+            missionStatusInformation = $"Missions Complete: {percentMissionsCompleted}%" + NEW_LINE;
+
+            if (percentMissionsCompleted == 0)
+            {
+                missionStatusInformation += "Looks like you are just starting out. No missions complete at this point and you better get on it!";
+            }
+            else if (percentMissionsCompleted <= 33)
+            {
+                missionStatusInformation += "Well, you have some of your missions complete, but this is just a start. You have your work cut out for you for sure.";
+            }
+            else if (percentMissionsCompleted <= 66)
+            {
+                missionStatusInformation += "You are making great progress with your missions. Keep at it.";
+            }
+            else if (percentMissionsCompleted == 100)
+            {
+                missionStatusInformation += "Congratulations, you have completed all missions assigned to you.";
+            }
+
+            return missionStatusInformation;
+        }
+
+        /// <summary>
+        /// generate the text for an engage mission detail
+        /// </summary>
+        /// <param name="mission">the mission</param>
+        /// <returns>mission detail text</returns>
+        private string GenerateMissionEngageDetail(MissionEngage mission)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Clear();
+
+            sb.AppendLine("All Required NPCs");
+            foreach (var location in mission.RequiredNpcs)
+            {
+                sb.AppendLine(TAB + location.Name);
+            }
+
+            if (mission.Status == Mission.MissionStatus.Incomplete)
+            {
+                sb.AppendLine("NPCs Yet to Engage");
+                foreach (var location in mission.NpcsNotCompleted(_player.NpcsEngaged))
+                {
+                    sb.AppendLine(TAB + location.Name);
+                }
+            }
+
+            sb.Remove(sb.Length - 2, 2); // remove the last two characters that generate a blank line
+
+            return sb.ToString(); ;
+        }
+
+        /// <summary>
+        /// generate the text for a travel mission detail
+        /// </summary>
+        /// <param name="mission">the mission</param>
+        /// <returns>mission detail text</returns>
+        private string GenerateMissionTravelDetail(MissionTravel mission)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Clear();
+
+            sb.AppendLine("All Required Locations");
+            foreach (var location in mission.RequiredLocations)
+            {
+                sb.AppendLine(TAB + location.Name);
+            }
+
+            if (mission.Status == Mission.MissionStatus.Incomplete)
+            {
+                sb.AppendLine("Locations Yet to Visit");
+                foreach (var location in mission.LocationsNotCompleted(_player.LocationsVisited))
+                {
+                    sb.AppendLine(TAB + location.Name);
+                }
+            }
+
+            sb.Remove(sb.Length - 2, 2); // remove the last two characters that generate a blank line
+
+            return sb.ToString(); ;
+        }
+
+        /// <summary>
+        /// generate the text for an gather mission detail
+        /// </summary>
+        /// <param name="mission">the mission</param>
+        /// <returns>mission detail text</returns>
+        private string GenerateMissionGatherDetail(MissionGather mission)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Clear();
+
+            sb.AppendLine("All Required Game Items (Quantity)");
+            foreach (var gameItemQuantity in mission.RequiredGameItemQuantities)
+            {
+                sb.Append(TAB + gameItemQuantity.GameItem.Name);
+                sb.AppendLine($"  ( {gameItemQuantity.Quantity} )");
+            }
+
+            if (mission.Status == Mission.MissionStatus.Incomplete)
+            {
+                sb.AppendLine("Game Items Yet to Gather (Quantity)");
+                foreach (var gameItemQuantity in mission.GameItemQuantitiesNotCompleted(_player.Inventory.ToList()))
+                {
+                    //
+                    // get the current quantity of game item in inventory
+                    //
+                    int quantityInInventory = 0;
+                    GameItemQuantity gameItemQuantityGatherered = _player.Inventory.FirstOrDefault(gi => gi.GameItem.Id == gameItemQuantity.GameItem.Id);
+                    if (gameItemQuantityGatherered != null)
+                        quantityInInventory = gameItemQuantityGatherered.Quantity;
+
+                    sb.Append(TAB + gameItemQuantity.GameItem.Name);
+                    sb.AppendLine($"  ( {gameItemQuantity.Quantity - quantityInInventory} )");
+                }
+            }
+
+            sb.Remove(sb.Length - 2, 2); // remove the last two characters that generate a blank line
+
+            return sb.ToString(); ;
         }
 
         #endregion

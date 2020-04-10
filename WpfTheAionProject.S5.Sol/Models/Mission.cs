@@ -8,12 +8,6 @@ namespace WpfTheAionProject.Models
 {
     public class Mission
     {
-        //public enum MissionTypeName
-        //{
-        //    travel,
-        //    inventory,
-        //    npc
-        //}
         public enum MissionStatus
         {
             Unassigned,
@@ -27,12 +21,6 @@ namespace WpfTheAionProject.Models
         private MissionStatus _status;
         private string _statusDetail;
         private int _experiencePoints;
-
-        //private MissionTypeName _missionType;
-        //private List<Location> _requiredLocations;
-        //private List<GameItemQuantity> _requiredGameItemQuantities;
-        //private List<Npc> _requiredNpcs;
-
 
         public int Id
         {
@@ -52,12 +40,6 @@ namespace WpfTheAionProject.Models
             set { _description = value; }
         }
 
-        //public MissionTypeName MissionType
-        //{
-        //    get { return _missionType; }
-        //    set { _missionType = value; }
-        //}
-
         public MissionStatus Status
         {
             get { return _status; }
@@ -76,27 +58,6 @@ namespace WpfTheAionProject.Models
             set { _experiencePoints = value; }
         }
 
-
-
-
-        //public List<Location> RequiredLocations
-        //{
-        //    get { return _requiredLocations; }
-        //    set { _requiredLocations = value; }
-        //}
-
-        //public List<Npc> RequiredNpcs
-        //{
-        //    get { return _requiredNpcs; }
-        //    set { _requiredNpcs = value; }
-        //}
-
-        //public List<GameItemQuantity> RequiredGameItemQuantities
-        //{
-        //    get { return _requiredGameItemQuantities; }
-        //    set { _requiredGameItemQuantities = value; }
-        //}
-        
         public Mission()
         {
 
